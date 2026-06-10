@@ -116,9 +116,20 @@ function fetch_from_repo() {
 
 	# Support using worktrees; needs GIT_BARE_REPO_FOR_WORKTREE set
 	if [[ "x${GIT_BARE_REPO_FOR_WORKTREE}x" != "xx" ]]; then
-		# If it is already a worktree...
+		# If it is already a worktree, validate the reference
 		if [[ -f "${git_work_dir}/.git" ]]; then
-			display_alert "Using existing worktree" "${git_work_dir}" "git"
+			local wt_ref
+			wt_ref="$(cat "${git_work_dir}/.git" 2>/dev/null | sed 's/^gitdir: //')"
+			if [[ -z "${wt_ref}" || ! -d "${wt_ref}" ]]; then
+				display_alert "Worktree reference is invalid, recreating" "${git_work_dir}" "warn"
+				cd "${SRC}" || exit_with_error "Could not cd to ${SRC}"
+				rm -rf "${git_work_dir}"
+				display_alert "Creating new worktree" "${git_work_dir}" "git"
+				run_host_command_logged git -C "${GIT_BARE_REPO_FOR_WORKTREE}" worktree add "${git_work_dir}" "${GIT_BARE_REPO_INITIAL_BRANCH}" --no-checkout --force
+				cd "${git_work_dir}" || exit
+			else
+				display_alert "Using existing worktree" "${git_work_dir}" "git"
+			fi
 		else
 			if [[ -d "${git_work_dir}" ]]; then
 				display_alert "Removing previously half-checked-out tree" "${git_work_dir}" "warn"

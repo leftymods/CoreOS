@@ -19,7 +19,7 @@ function kernel_prepare_git() {
 
 	GIT_FIXED_WORKDIR="${LINUXSOURCEDIR}" \
 		GIT_BARE_REPO_FOR_WORKTREE="${kernel_git_bare_tree}" \
-		GIT_BARE_REPO_INITIAL_BRANCH="master" \
+		GIT_BARE_REPO_INITIAL_BRANCH="main" \
 		fetch_from_repo "${KERNELSOURCE}" "kernel:${KERNEL_MAJOR_MINOR}" "${KERNELBRANCH}" "yes"
 	# second parameter, "dir", is ignored, since we've passed GIT_FIXED_WORKDIR
 }

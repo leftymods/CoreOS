@@ -207,12 +207,12 @@ function kernel_prepare_bare_repo_from_oras_gitball() {
 		if [[ -n "${KERNELSOURCE}" && "${KERNELSOURCE}" != "https://git.kernel.org/"* && "${KERNELSOURCE}" != "https://kernel.googlesource.com/"* ]]; then
 			display_alert "Custom kernel source detected" "skipping ORAS bundle, cloning directly" "info"
 			run_host_command_logged mkdir -p "${kernel_git_bare_tree}"
-			run_host_command_logged git init --bare "${kernel_git_bare_tree}"
+			run_host_command_logged git init "${kernel_git_bare_tree}"
 			run_host_command_logged git -C "${kernel_git_bare_tree}" remote add origin "${KERNELSOURCE}"
 			declare fetch_ref="${KERNELBRANCH#branch:}"
 			display_alert "Fetching custom kernel into bare tree" "${KERNELSOURCE} ref: ${fetch_ref}" "info"
 			run_host_command_logged git -C "${kernel_git_bare_tree}" fetch --depth=1 origin "${fetch_ref}:refs/heads/${fetch_ref}"
-			touch "${kernel_git_bare_tree_done_marker}"
+			run_host_command_logged touch "${kernel_git_bare_tree_done_marker}"
 			display_alert "Custom kernel bare tree ready" "${kernel_git_bare_tree}" "info"
 			return 0
 		fi
