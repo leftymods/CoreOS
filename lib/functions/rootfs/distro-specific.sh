@@ -57,7 +57,7 @@ function install_distribution_specific() {
 
 	# install our base-files package (this replaces the original from Debian/Ubuntu)
 	if [[ "${KEEP_ORIGINAL_OS_RELEASE:-"no"}" != "yes" ]]; then
-		install_artifact_deb_chroot "armbian-base-files" "--allow-downgrades"
+		install_artifact_deb_chroot "atrios-base-files" "--allow-downgrades"
 	fi
 
 	# Set DNS server if systemd-resolved is in use

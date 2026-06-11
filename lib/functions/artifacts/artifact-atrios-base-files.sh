@@ -7,15 +7,15 @@
 # tl;dr: this artifact is a replacement for the original distro's base-files.
 # We find what is the latest version of the original distro's base-files.
 # Then we download it, and we modify it to suit our needs.
-# The artifact is named "armbian-base-files".
+# The artifact is named "atrios-base-files".
 # But the package is still named "base-files", this is similar to what Linux Mint does for the same purpose.
 
-function artifact_armbian-base-files_config_dump() {
+function artifact_atrios-base-files_config_dump() {
 	artifact_input_variables[RELEASE]="${RELEASE}"
 	artifact_input_variables[ARCH]="${ARCH}"
 }
 
-function artifact_armbian-base-files_prepare_version() {
+function artifact_atrios-base-files_prepare_version() {
 	: "${RELEASE:?RELEASE is not set}"
 	: "${ARCH:?ARCH is not set}"
 
@@ -42,39 +42,39 @@ function artifact_armbian-base-files_prepare_version() {
 
 	# get the hashes of the lib/ bash sources involved.
 	declare hash_files="undetermined"
-	calculate_hash_for_bash_deb_artifact "artifacts/artifact-armbian-base-files.sh"
+	calculate_hash_for_bash_deb_artifact "artifacts/artifact-atrios-base-files.sh"
 	declare bash_hash="${hash_files}"
 	declare bash_hash_short="${bash_hash:0:${short_hash_size}}"
 
 	# outer scope
 	artifact_version="${fake_unchanging_base_version}-B${bash_hash_short}-U${base_files_cleaned_upstream_version_tag}"
 
-	declare -a reasons=("Armbian armbian-base-files" "original ${RELEASE} version \"${base_files_wanted_upstream_version}\"" "framework bash hash \"${bash_hash}\"")
+	declare -a reasons=("Armbian atrios-base-files" "original ${RELEASE} version \"${base_files_wanted_upstream_version}\"" "framework bash hash \"${bash_hash}\"")
 
 	artifact_version_reason="${reasons[*]}" # outer scope
 
-	artifact_name="armbian-base-files-${RELEASE}-${ARCH}"
+	artifact_name="atrios-base-files-${RELEASE}-${ARCH}"
 	artifact_type="deb"
 	artifact_deb_repo="extra/${RELEASE}-utils" # release-specific repo (jammy etc)
 	artifact_deb_arch="${ARCH}"                # arch-specific packages (arm64 etc)
-	artifact_map_packages=(["armbian-base-files"]="base-files")
+	artifact_map_packages=(["atrios-base-files"]="base-files")
 
 	# Important. Force the final reversioned version to contain the release name.
 	# Otherwise, when publishing to a repo, pool/main/b/base-files/base-files_${REVISION}.deb will be the same across releases.
 	artifact_final_version_reversioned="${REVISION}-${base_files_wanted_upstream_version}-${RELEASE}"
 
 	# Register the function used to re-version the _contents_ of the base-files deb file.
-	artifact_debs_reversion_functions+=("reversion_armbian-base-files_deb_contents")
+	artifact_debs_reversion_functions+=("reversion_atrios-base-files_deb_contents")
 
 	return 0
 }
 
-function artifact_armbian-base-files_build_from_sources() {
-	LOG_SECTION="compile_armbian-base-files" do_with_logging compile_armbian-base-files
+function artifact_atrios-base-files_build_from_sources() {
+	LOG_SECTION="compile_atrios-base-files" do_with_logging compile_atrios-base-files
 }
 
 # Dont' wanna use a separate file for this. Keep it in here.
-function compile_armbian-base-files() {
+function compile_atrios-base-files() {
 	: "${artifact_name:?artifact_name is not set}"
 	: "${artifact_version:?artifact_version is not set}"
 	: "${RELEASE:?RELEASE is not set}"
@@ -130,7 +130,7 @@ function compile_armbian-base-files() {
 	cp "${destination}"/DEBIAN/conffiles "${destination}"/DEBIAN/conffiles.orig
 
 	# Attention: this is just a few base changes that don't involve "$REVISION".
-	# More are done in reversion_armbian-base-files_deb_contents()
+	# More are done in reversion_atrios-base-files_deb_contents()
 	cat <<- EOD >> "${destination}/etc/dpkg/origins/armbian"
 		Vendor: ${VENDOR}
 		Vendor-URL: ${VENDORURL}
@@ -227,13 +227,13 @@ function compile_armbian-base-files() {
 	rm -f "${destination}"/etc/os-release.orig "${destination}"/etc/issue.orig "${destination}"/etc/issue.net.orig "${destination}"/DEBIAN/conffiles.orig
 
 	# Done, pack it.
-	dpkg_deb_build "${destination}" "armbian-base-files"
+	dpkg_deb_build "${destination}" "atrios-base-files"
 
 	done_with_temp_dir "${cleanup_id}" # changes cwd to "${SRC}" and fires the cleanup function early
 }
 
 # Used to reversion the artifact contents.
-function reversion_armbian-base-files_deb_contents() {
+function reversion_atrios-base-files_deb_contents() {
 	display_alert "Reversioning" "reversioning base-files CONTENTS: '$*'" "debug"
 
 	declare orig_distro_release="${RELEASE}"
@@ -259,14 +259,14 @@ function reversion_armbian-base-files_deb_contents() {
 	return 0
 }
 
-function artifact_armbian-base-files_cli_adapter_pre_run() {
+function artifact_atrios-base-files_cli_adapter_pre_run() {
 	declare -g ARMBIAN_COMMAND_REQUIRE_BASIC_DEPS="yes" # Require prepare_host_basic to run before the command.
 
 	# "gimme root on a Linux machine"
 	cli_standard_relaunch_docker_or_sudo
 }
 
-function artifact_armbian-base-files_cli_adapter_config_prep() {
+function artifact_atrios-base-files_cli_adapter_config_prep() {
 	: "${RELEASE:?RELEASE is not set}"
 	: "${BOARD:?BOARD is not set}"
 
@@ -274,22 +274,22 @@ function artifact_armbian-base-files_cli_adapter_config_prep() {
 	use_board="yes" allow_no_family="no" skip_kernel="no" prep_conf_main_minimal_ni < /dev/null # no stdin for this, so it bombs if tries to be interactive.
 }
 
-function artifact_armbian-base-files_get_default_oci_target() {
+function artifact_atrios-base-files_get_default_oci_target() {
 	artifact_oci_target_base="${GHCR_SOURCE}/armbian/os/"
 }
 
-function artifact_armbian-base-files_is_available_in_local_cache() {
+function artifact_atrios-base-files_is_available_in_local_cache() {
 	is_artifact_available_in_local_cache
 }
 
-function artifact_armbian-base-files_is_available_in_remote_cache() {
+function artifact_atrios-base-files_is_available_in_remote_cache() {
 	is_artifact_available_in_remote_cache
 }
 
-function artifact_armbian-base-files_obtain_from_remote_cache() {
+function artifact_atrios-base-files_obtain_from_remote_cache() {
 	obtain_artifact_from_remote_cache
 }
 
-function artifact_armbian-base-files_deploy_to_remote_cache() {
+function artifact_atrios-base-files_deploy_to_remote_cache() {
 	upload_artifact_to_oci
 }

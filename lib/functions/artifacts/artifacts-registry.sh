@@ -19,10 +19,14 @@ function armbian_register_artifacts() {
 		["firmware"]="firmware"
 		["full_firmware"]="full_firmware"
 		["fake_ubuntu_advantage_tools"]="fake_ubuntu_advantage_tools"
-		["armbian-zsh"]="armbian-zsh"
-		["armbian-plymouth-theme"]="armbian-plymouth-theme"
-		["armbian-base-files"]="armbian-base-files"
-		["armbian-bsp-cli"]="armbian-bsp-cli"
+		["armbian-zsh"]="atrios-zsh"
+		["atrios-zsh"]="atrios-zsh"
+		["armbian-plymouth-theme"]="atrios-plymouth-theme"
+		["atrios-plymouth-theme"]="atrios-plymouth-theme"
+		["armbian-base-files"]="atrios-base-files"
+		["atrios-base-files"]="atrios-base-files"
+		["armbian-bsp-cli"]="atrios-bsp-cli"
+		["atrios-bsp-cli"]="atrios-bsp-cli"
 
 		# tar.zst
 		["rootfs"]="rootfs"

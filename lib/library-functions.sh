@@ -6,36 +6,36 @@
 #set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable - one day will be enabled
 set -o errtrace # trace ERR through - enabled
 set -o errexit  ## set -e : exit the script if any statement returns a non-true return value - enabled
-### lib/functions/artifacts/artifact-armbian-base-files.sh
-# shellcheck source=lib/functions/artifacts/artifact-armbian-base-files.sh
-source "${SRC}"/lib/functions/artifacts/artifact-armbian-base-files.sh
+### lib/functions/artifacts/artifact-atrios-base-files.sh
+# shellcheck source=lib/functions/artifacts/artifact-atrios-base-files.sh
+source "${SRC}"/lib/functions/artifacts/artifact-atrios-base-files.sh
 
 # no errors tolerated. invoked before each sourced file to make sure.
 #set -o pipefail  # trace ERR through pipes - will be enabled "soon"
 #set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable - one day will be enabled
 set -o errtrace # trace ERR through - enabled
 set -o errexit  ## set -e : exit the script if any statement returns a non-true return value - enabled
-### lib/functions/artifacts/artifact-armbian-bsp-cli.sh
-# shellcheck source=lib/functions/artifacts/artifact-armbian-bsp-cli.sh
-source "${SRC}"/lib/functions/artifacts/artifact-armbian-bsp-cli.sh
+### lib/functions/artifacts/artifact-atrios-bsp-cli.sh
+# shellcheck source=lib/functions/artifacts/artifact-atrios-bsp-cli.sh
+source "${SRC}"/lib/functions/artifacts/artifact-atrios-bsp-cli.sh
 
 # no errors tolerated. invoked before each sourced file to make sure.
 #set -o pipefail  # trace ERR through pipes - will be enabled "soon"
 #set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable - one day will be enabled
 set -o errtrace # trace ERR through - enabled
 set -o errexit  ## set -e : exit the script if any statement returns a non-true return value - enabled
-### lib/functions/artifacts/artifact-armbian-plymouth-theme.sh
-# shellcheck source=lib/functions/artifacts/artifact-armbian-plymouth-theme.sh
-source "${SRC}"/lib/functions/artifacts/artifact-armbian-plymouth-theme.sh
+### lib/functions/artifacts/artifact-atrios-plymouth-theme.sh
+# shellcheck source=lib/functions/artifacts/artifact-atrios-plymouth-theme.sh
+source "${SRC}"/lib/functions/artifacts/artifact-atrios-plymouth-theme.sh
 
 # no errors tolerated. invoked before each sourced file to make sure.
 #set -o pipefail  # trace ERR through pipes - will be enabled "soon"
 #set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable - one day will be enabled
 set -o errtrace # trace ERR through - enabled
 set -o errexit  ## set -e : exit the script if any statement returns a non-true return value - enabled
-### lib/functions/artifacts/artifact-armbian-zsh.sh
-# shellcheck source=lib/functions/artifacts/artifact-armbian-zsh.sh
-source "${SRC}"/lib/functions/artifacts/artifact-armbian-zsh.sh
+### lib/functions/artifacts/artifact-atrios-zsh.sh
+# shellcheck source=lib/functions/artifacts/artifact-atrios-zsh.sh
+source "${SRC}"/lib/functions/artifacts/artifact-atrios-zsh.sh
 
 # no errors tolerated. invoked before each sourced file to make sure.
 #set -o pipefail  # trace ERR through pipes - will be enabled "soon"
@@ -123,9 +123,9 @@ source "${SRC}"/lib/functions/artifacts/artifact-uboot.sh
 #set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable - one day will be enabled
 set -o errtrace # trace ERR through - enabled
 set -o errexit  ## set -e : exit the script if any statement returns a non-true return value - enabled
-### lib/functions/bsp/armbian-bsp-cli-deb.sh
-# shellcheck source=lib/functions/bsp/armbian-bsp-cli-deb.sh
-source "${SRC}"/lib/functions/bsp/armbian-bsp-cli-deb.sh
+### lib/functions/bsp/atrios-bsp-cli-deb.sh
+# shellcheck source=lib/functions/bsp/atrios-bsp-cli-deb.sh
+source "${SRC}"/lib/functions/bsp/atrios-bsp-cli-deb.sh
 
 # no errors tolerated. invoked before each sourced file to make sure.
 #set -o pipefail  # trace ERR through pipes - will be enabled "soon"
@@ -393,18 +393,18 @@ source "${SRC}"/lib/functions/compilation/kernel.sh
 #set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable - one day will be enabled
 set -o errtrace # trace ERR through - enabled
 set -o errexit  ## set -e : exit the script if any statement returns a non-true return value - enabled
-### lib/functions/compilation/packages/armbian-plymouth-theme-deb.sh
-# shellcheck source=lib/functions/compilation/packages/armbian-plymouth-theme-deb.sh
-source "${SRC}"/lib/functions/compilation/packages/armbian-plymouth-theme-deb.sh
+### lib/functions/compilation/packages/atrios-plymouth-theme-deb.sh
+# shellcheck source=lib/functions/compilation/packages/atrios-plymouth-theme-deb.sh
+source "${SRC}"/lib/functions/compilation/packages/atrios-plymouth-theme-deb.sh
 
 # no errors tolerated. invoked before each sourced file to make sure.
 #set -o pipefail  # trace ERR through pipes - will be enabled "soon"
 #set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable - one day will be enabled
 set -o errtrace # trace ERR through - enabled
 set -o errexit  ## set -e : exit the script if any statement returns a non-true return value - enabled
-### lib/functions/compilation/packages/armbian-zsh-deb.sh
-# shellcheck source=lib/functions/compilation/packages/armbian-zsh-deb.sh
-source "${SRC}"/lib/functions/compilation/packages/armbian-zsh-deb.sh
+### lib/functions/compilation/packages/atrios-zsh-deb.sh
+# shellcheck source=lib/functions/compilation/packages/atrios-zsh-deb.sh
+source "${SRC}"/lib/functions/compilation/packages/atrios-zsh-deb.sh
 
 # no errors tolerated. invoked before each sourced file to make sure.
 #set -o pipefail  # trace ERR through pipes - will be enabled "soon"

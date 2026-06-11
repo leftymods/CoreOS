@@ -25,24 +25,24 @@ function determine_artifacts_to_build_for_image() {
 
 	# Userspace, RELEASE+ARCH specific, replaces the original distro's base-files
 	# This is always built, but only installed if KEEP_ORIGINAL_OS_RELEASE!=yes.
-	artifacts_to_build+=("armbian-base-files")
+	artifacts_to_build+=("atrios-base-files")
 
 	if [[ "${DISTRIBUTION}" == "Ubuntu" ]]; then
 		artifacts_to_build+=("fake_ubuntu_advantage_tools")
 	fi
 
-	if [[ "${PACKAGE_LIST_RM}" != *armbian-zsh* ]]; then
+	if [[ "${PACKAGE_LIST_RM}" != *atrios-zsh* ]]; then
 		if [[ $BUILD_MINIMAL != yes ]]; then
-			artifacts_to_build+=("armbian-zsh")
+			artifacts_to_build+=("atrios-zsh")
 		fi
 	fi
 
 	if [[ $PLYMOUTH == yes ]]; then
-		artifacts_to_build+=("armbian-plymouth-theme")
+		artifacts_to_build+=("atrios-plymouth-theme")
 	fi
 
 	# Userspace, BOARD+BRANCH specific (not RELEASE)
-	artifacts_to_build+=("armbian-bsp-cli")
+	artifacts_to_build+=("atrios-bsp-cli")
 
 	# Desktop packages are now installed by armbian-config (module_desktops)
 	# during rootfs creation in distro-agnostic.sh. No per-DE artifact to build.

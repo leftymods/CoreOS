@@ -91,6 +91,11 @@ function armbian_register_commands() {
 		["armbian-base-files"]="artifact"
 		["armbian-bsp-cli"]="artifact"
 
+		["atrios-zsh"]="artifact"
+		["atrios-plymouth-theme"]="artifact"
+		["atrios-base-files"]="artifact"
+		["atrios-bsp-cli"]="artifact"
+
 		["undecided"]="undecided" # implemented in cli_undecided_pre_run and cli_undecided_run - relaunches either build or docker
 	)
 
@@ -149,6 +154,11 @@ function armbian_register_commands() {
 
 		["armbian-base-files"]="WHAT='armbian-base-files' ${common_cli_artifact_vars}"
 		["armbian-bsp-cli"]="WHAT='armbian-bsp-cli' ${common_cli_artifact_vars}"
+
+		["atrios-zsh"]="WHAT='atrios-zsh' ${common_cli_artifact_vars}"
+		["atrios-plymouth-theme"]="WHAT='atrios-plymouth-theme' ${common_cli_artifact_vars}"
+		["atrios-base-files"]="WHAT='atrios-base-files' ${common_cli_artifact_vars}"
+		["atrios-bsp-cli"]="WHAT='atrios-bsp-cli' ${common_cli_artifact_vars}"
 
 		["oras-upload"]="ORAS_OPERATION='upload'"
 

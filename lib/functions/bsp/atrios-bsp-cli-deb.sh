@@ -7,13 +7,13 @@
 # This file is a part of the Armbian Build Framework
 # https://github.com/armbian/build/
 
-function compile_armbian-bsp-cli-transitional() {
+function compile_atrios-bsp-cli-transitional() {
 	: "${artifact_version:?artifact_version is not set}"
 	: "${artifact_name:?artifact_name is not set}"
 	: "${BOARD:?BOARD is not set}"
 	: "${BRANCH:?BRANCH is not set}"
 
-	display_alert "Creating bsp-cli transitional package on board '${BOARD}' branch '${BRANCH}'" "armbian-bsp-cli-${BOARD} :: ${artifact_version}" "info"
+	display_alert "Creating bsp-cli transitional package on board '${BOARD}' branch '${BRANCH}'" "atrios-bsp-cli-${BOARD} :: ${artifact_version}" "info"
 
 	# "destination" is used a lot in hooks already. keep this name, even if only for compatibility.
 	declare cleanup_id="" destination=""
@@ -24,7 +24,7 @@ function compile_armbian-bsp-cli-transitional() {
 
 	# Add transitional package
 	cat <<- EOF > "${destination}"/DEBIAN/control
-		Package: armbian-bsp-cli-${BOARD}${EXTRA_BSP_NAME}
+		Package: atrios-bsp-cli-${BOARD}${EXTRA_BSP_NAME}
 		Version: ${artifact_version}
 		Architecture: $ARCH
 		Maintainer: $MAINTAINER <$MAINTAINERMAIL>
@@ -34,18 +34,18 @@ function compile_armbian-bsp-cli-transitional() {
 	EOF
 
 	# Build / close the package. This will run shellcheck / show the generated files if debugging
-	dpkg_deb_build "${destination}" "armbian-bsp-cli-transitional"
+	dpkg_deb_build "${destination}" "atrios-bsp-cli-transitional"
 
 	done_with_temp_dir "${cleanup_id}" # changes cwd to "${SRC}" and fires the cleanup function early
 
 	display_alert "Done building BSP CLI transitional package" "${destination}" "debug"
 }
 
-function reversion_armbian-bsp-cli-transitional_deb_contents() {
-	if [[ "${1}" != "armbian-bsp-cli-transitional" ]]; then
+function reversion_atrios-bsp-cli-transitional_deb_contents() {
+	if [[ "${1}" != "atrios-bsp-cli-transitional" ]]; then
 		return 0 # Not our deb, nothing to do.
 	fi
-	display_alert "Reversion" "reversion_armbian-bsp-cli-transitional_deb_contents: '$*'" "debug"
+	display_alert "Reversion" "reversion_atrios-bsp-cli-transitional_deb_contents: '$*'" "debug"
 
 	# Depends on the new package
 	cat <<- EOF >> "${control_file_new}"
@@ -54,7 +54,7 @@ function reversion_armbian-bsp-cli-transitional_deb_contents() {
 
 }
 
-function compile_armbian-bsp-cli() {
+function compile_atrios-bsp-cli() {
 	: "${artifact_version:?artifact_version is not set}"
 	: "${artifact_name:?artifact_name is not set}"
 	: "${BOARD:?BOARD is not set}"
@@ -241,7 +241,7 @@ function compile_armbian-bsp-cli() {
 	fi
 
 	# Build / close the package. This will run shellcheck / show the generated files if debugging
-	dpkg_deb_build "${destination}" "armbian-bsp-cli"
+	dpkg_deb_build "${destination}" "atrios-bsp-cli"
 
 	done_with_temp_dir "${cleanup_id}" # changes cwd to "${SRC}" and fires the cleanup function early
 
@@ -250,11 +250,11 @@ function compile_armbian-bsp-cli() {
 
 # Reversion function is called with the following parameters:
 # ${1} == deb_id
-function reversion_armbian-bsp-cli_deb_contents() {
-	if [[ "${1}" != "armbian-bsp-cli" ]]; then
+function reversion_atrios-bsp-cli_deb_contents() {
+	if [[ "${1}" != "atrios-bsp-cli" ]]; then
 		return 0 # Not our deb, nothing to do.
 	fi
-	display_alert "Reversion" "reversion_armbian-bsp-cli_deb_contents: '$*'" "debug"
+	display_alert "Reversion" "reversion_atrios-bsp-cli_deb_contents: '$*'" "debug"
 
 	# Replaces: base-files is needed to replace the distro's base-files
 	# Depends: linux-base is needed for "linux-version" command in initrd cleanup script
@@ -266,9 +266,9 @@ function reversion_armbian-bsp-cli_deb_contents() {
 	fi
 	cat <<- EOF >> "${control_file_new}"
 		Depends: bash, linux-base, u-boot-tools, initramfs-tools, lsb-release, fping, device-tree-compiler${depends_base_files}
-		Replaces: zram-config, armbian-bsp-cli-${BOARD}${EXTRA_BSP_NAME} (<< ${REVISION})
-		Breaks: armbian-bsp-cli-${BOARD}${EXTRA_BSP_NAME} (<< ${REVISION})
-		Provides: armbian-bsp-cli
+		Replaces: zram-config, atrios-bsp-cli-${BOARD}${EXTRA_BSP_NAME} (<< ${REVISION})
+		Breaks: atrios-bsp-cli-${BOARD}${EXTRA_BSP_NAME} (<< ${REVISION})
+		Provides: atrios-bsp-cli
 	EOF
 
 	artifact_deb_reversion_unpack_data_deb

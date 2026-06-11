@@ -403,18 +403,18 @@ function install_distribution_agnostic() {
 	fi
 
 	# install board support packages
-	install_artifact_deb_chroot "armbian-bsp-cli"
+	install_artifact_deb_chroot "atrios-bsp-cli"
 
-	# install armbian-zsh
-	if [[ "${PACKAGE_LIST_RM}" != *armbian-zsh* ]]; then
+	# install atrios-zsh
+	if [[ "${PACKAGE_LIST_RM}" != *atrios-zsh* ]]; then
 		if [[ $BUILD_MINIMAL != yes ]]; then
-			install_artifact_deb_chroot "armbian-zsh"
+			install_artifact_deb_chroot "atrios-zsh"
 		fi
 	fi
 
-	# install armbian-plymouth-theme
+	# install atrios-plymouth-theme
 	if [[ $PLYMOUTH == yes ]]; then
-		install_artifact_deb_chroot "armbian-plymouth-theme"
+		install_artifact_deb_chroot "atrios-plymouth-theme"
 	else
 		chroot_sdcard_apt_get_remove --auto-remove plymouth 2>/dev/null || true
 	fi

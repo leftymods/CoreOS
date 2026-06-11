@@ -219,7 +219,7 @@ adding_packages() {
 
 			# Read kernel pinning mappings from file
 			while IFS='|' read -r board branch linux_family last_kernel; do
-				if [[ "${package_name}" == "armbian-bsp-cli-${board}-${branch}" ]]; then
+				if [[ "${package_name}" == "atrios-bsp-cli-${board}-${branch}" ]]; then
 					echo "Setting last kernel upgrade for $board to linux-image-$branch-$board=${last_kernel}"
 
 					# Extract, modify control file, and repackage

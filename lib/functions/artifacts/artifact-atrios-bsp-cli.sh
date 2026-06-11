@@ -7,13 +7,13 @@
 # This file is a part of the Armbian Build Framework
 # https://github.com/armbian/build/
 
-function artifact_armbian-bsp-cli_config_dump() {
+function artifact_atrios-bsp-cli_config_dump() {
 	artifact_input_variables[BOARD]="${BOARD}"
 	artifact_input_variables[BRANCH]="${BRANCH}"
 	artifact_input_variables[EXTRA_BSP_NAME]="${EXTRA_BSP_NAME}"
 }
 
-function artifact_armbian-bsp-cli_prepare_version() {
+function artifact_atrios-bsp-cli_prepare_version() {
 	: "${BRANCH:?BRANCH is not set}"
 	: "${BOARD:?BOARD is not set}"
 
@@ -86,7 +86,7 @@ function artifact_armbian-bsp-cli_prepare_version() {
 
 	# get the hashes of the lib/ bash sources involved...
 	declare hash_files="undetermined"
-	calculate_hash_for_bash_deb_artifact "bsp/armbian-bsp-cli-deb.sh" "bsp/utils-bsp.sh"
+	calculate_hash_for_bash_deb_artifact "bsp/atrios-bsp-cli-deb.sh" "bsp/utils-bsp.sh"
 	declare bash_hash="${hash_files}"
 	declare bash_hash_short="${bash_hash:0:${short_hash_size}}"
 
@@ -94,7 +94,7 @@ function artifact_armbian-bsp-cli_prepare_version() {
 	artifact_version="${fake_unchanging_base_version}-PC${packages_config_hash_short}-V${var_config_hash_short}-H${hash_hooks_short}-B${bash_hash_short}"
 
 	declare -a reasons=(
-		"Armbian package armbian-bsp-cli"
+		"Armbian package atrios-bsp-cli"
 		"BOARD \"${BOARD}\""
 		"BRANCH \"${BRANCH}\""
 		"EXTRA_BSP_NAME \"${EXTRA_BSP_NAME}\""
@@ -108,65 +108,65 @@ function artifact_armbian-bsp-cli_prepare_version() {
 
 	artifact_deb_repo="global"  # "global" meaning: release-independent repo. could be '${RELEASE}' for a release-specific package.
 	artifact_deb_arch="${ARCH}" # arch-specific package, or 'all' for arch-independent package.
-	artifact_name="armbian-bsp-cli-${BOARD}-${BRANCH}${EXTRA_BSP_NAME}"
+	artifact_name="atrios-bsp-cli-${BOARD}-${BRANCH}${EXTRA_BSP_NAME}"
 	artifact_type="deb-tar"
 
-	artifact_map_packages=(["armbian-bsp-cli"]="${artifact_name}")
+	artifact_map_packages=(["atrios-bsp-cli"]="${artifact_name}")
 
 	# Register the function used to re-version the _contents_ of the bsp-cli deb file (non-transitional)
-	artifact_debs_reversion_functions+=("reversion_armbian-bsp-cli_deb_contents")
+	artifact_debs_reversion_functions+=("reversion_atrios-bsp-cli_deb_contents")
 
-	if artifact_armbian-bsp-cli_needs_transitional_package; then
-		artifact_map_packages+=(["armbian-bsp-cli-transitional"]="armbian-bsp-cli-${BOARD}${EXTRA_BSP_NAME}")
+	if artifact_atrios-bsp-cli_needs_transitional_package; then
+		artifact_map_packages+=(["atrios-bsp-cli-transitional"]="atrios-bsp-cli-${BOARD}${EXTRA_BSP_NAME}")
 		# Register the function used to re-version the _contents_ of the bsp-cli deb file (transitional)
-		artifact_debs_reversion_functions+=("reversion_armbian-bsp-cli-transitional_deb_contents")
+		artifact_debs_reversion_functions+=("reversion_atrios-bsp-cli-transitional_deb_contents")
 	fi
 
 	return 0
 }
 
-function artifact_armbian-bsp-cli_build_from_sources() {
+function artifact_atrios-bsp-cli_build_from_sources() {
 	# Generate transitional package when needed.
-	if artifact_armbian-bsp-cli_needs_transitional_package; then
-		LOG_SECTION="compile_armbian-bsp-cli" do_with_logging compile_armbian-bsp-cli-transitional
+	if artifact_atrios-bsp-cli_needs_transitional_package; then
+		LOG_SECTION="compile_atrios-bsp-cli" do_with_logging compile_atrios-bsp-cli-transitional
 	fi
 
-	LOG_SECTION="compile_armbian-bsp-cli" do_with_logging compile_armbian-bsp-cli
+	LOG_SECTION="compile_atrios-bsp-cli" do_with_logging compile_atrios-bsp-cli
 }
 
-function artifact_armbian-bsp-cli_cli_adapter_pre_run() {
+function artifact_atrios-bsp-cli_cli_adapter_pre_run() {
 	declare -g ARMBIAN_COMMAND_REQUIRE_BASIC_DEPS="yes" # Require prepare_host_basic to run before the command.
 
 	# "gimme root on a Linux machine"
 	cli_standard_relaunch_docker_or_sudo
 }
 
-function artifact_armbian-bsp-cli_cli_adapter_config_prep() {
+function artifact_atrios-bsp-cli_cli_adapter_config_prep() {
 	# there is no need for aggregation here.
 	use_board="yes" allow_no_family="no" skip_kernel="no" prep_conf_main_minimal_ni < /dev/null # no stdin for this, so it bombs if tries to be interactive.
 }
 
-function artifact_armbian-bsp-cli_get_default_oci_target() {
+function artifact_atrios-bsp-cli_get_default_oci_target() {
 	artifact_oci_target_base="${GHCR_SOURCE}/armbian/os/"
 }
 
-function artifact_armbian-bsp-cli_is_available_in_local_cache() {
+function artifact_atrios-bsp-cli_is_available_in_local_cache() {
 	is_artifact_available_in_local_cache
 }
 
-function artifact_armbian-bsp-cli_is_available_in_remote_cache() {
+function artifact_atrios-bsp-cli_is_available_in_remote_cache() {
 	is_artifact_available_in_remote_cache
 }
 
-function artifact_armbian-bsp-cli_obtain_from_remote_cache() {
+function artifact_atrios-bsp-cli_obtain_from_remote_cache() {
 	obtain_artifact_from_remote_cache
 }
 
-function artifact_armbian-bsp-cli_deploy_to_remote_cache() {
+function artifact_atrios-bsp-cli_deploy_to_remote_cache() {
 	upload_artifact_to_oci
 }
 
-function artifact_armbian-bsp-cli_needs_transitional_package() {
+function artifact_atrios-bsp-cli_needs_transitional_package() {
 	if [[ "${KERNEL_TARGET}" == "${BRANCH}" ]]; then
 		return 0
 	elif [[ "${BRANCH}" == "current" ]]; then

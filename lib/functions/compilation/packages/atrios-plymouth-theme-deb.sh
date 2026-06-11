@@ -7,13 +7,13 @@
 # This file is a part of the Armbian Build Framework
 # https://github.com/armbian/build/
 
-compile_armbian-plymouth-theme() {
+compile_atrios-plymouth-theme() {
 	: "${artifact_version:?artifact_version is not set}"
 
 	declare cleanup_id="" tmp_dir=""
-	prepare_temp_dir_in_workdir_and_schedule_cleanup "deb-armbian-plymouth-theme" cleanup_id tmp_dir # namerefs
+	prepare_temp_dir_in_workdir_and_schedule_cleanup "deb-atrios-plymouth-theme" cleanup_id tmp_dir # namerefs
 
-	declare plymouth_theme_armbian_dir="armbian-plymouth-theme"
+	declare plymouth_theme_armbian_dir="atrios-plymouth-theme"
 	mkdir -p "${tmp_dir}/${plymouth_theme_armbian_dir}"
 
 	run_host_command_logged mkdir -p "${tmp_dir}/${plymouth_theme_armbian_dir}"/{DEBIAN,usr/share/plymouth/themes/armbian}
@@ -22,14 +22,14 @@ compile_armbian-plymouth-theme() {
 
 	# set up control file
 	cat <<- END > DEBIAN/control
-		Package: armbian-plymouth-theme
+		Package: atrios-plymouth-theme
 		Version: ${artifact_version}
 		Architecture: all
 		Maintainer: $MAINTAINER <$MAINTAINERMAIL>
 		Depends: plymouth, plymouth-themes
 		Section: universe/x11
 		Priority: optional
-		Description: boot animation, logger and I/O multiplexer - Armbian theme
+		Description: boot animation, logger and I/O multiplexer - AtriOS theme
 	END
 
 	run_host_command_logged cp "${SRC}"/packages/plymouth-theme-armbian/debian/{postinst,prerm,postrm} \
@@ -55,7 +55,7 @@ compile_armbian-plymouth-theme() {
 	run_host_command_logged cp "${SRC}"/packages/plymouth-theme-armbian/armbian.plymouth \
 		"${tmp_dir}/${plymouth_theme_armbian_dir}"/usr/share/plymouth/themes/armbian/
 
-	dpkg_deb_build "${tmp_dir}/${plymouth_theme_armbian_dir}" "armbian-plymouth-theme"
+	dpkg_deb_build "${tmp_dir}/${plymouth_theme_armbian_dir}" "atrios-plymouth-theme"
 
 	done_with_temp_dir "${cleanup_id}" # changes cwd to "${SRC}" and fires the cleanup function early
 }

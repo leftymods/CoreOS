@@ -7,12 +7,12 @@
 # This file is a part of the Armbian Build Framework
 # https://github.com/armbian/build/
 
-function artifact_armbian-zsh_config_dump() {
-	# artifact_input_variables: None, for armbian-zsh.
+function artifact_atrios-zsh_config_dump() {
+	# artifact_input_variables: None, for atrios-zsh.
 	:
 }
 
-function artifact_armbian-zsh_prepare_version() {
+function artifact_atrios-zsh_prepare_version() {
 	artifact_version="undetermined"        # outer scope
 	artifact_version_reason="undetermined" # outer scope
 
@@ -37,7 +37,7 @@ function artifact_armbian-zsh_prepare_version() {
 
 	# get the hashes of the lib/ bash sources involved...
 	declare hash_files="undetermined"
-	calculate_hash_for_bash_deb_artifact "compilation/packages/armbian-zsh-deb.sh"
+	calculate_hash_for_bash_deb_artifact "compilation/packages/atrios-zsh-deb.sh"
 	declare bash_hash="${hash_files}"
 	declare bash_hash_short="${bash_hash:0:${short_hash_size}}"
 
@@ -45,15 +45,15 @@ function artifact_armbian-zsh_prepare_version() {
 	artifact_version="${fake_unchanging_base_version}-SA${short_sha1}-B${bash_hash_short}"
 
 	declare -a reasons=(
-		"Armbian armbian-zsh git revision \"${GIT_INFO_ARMBIAN_ZSH[SHA1]}\""
+		"Armbian atrios-zsh git revision \"${GIT_INFO_ARMBIAN_ZSH[SHA1]}\""
 		"framework bash hash \"${bash_hash}\""
 	)
 
 	artifact_version_reason="${reasons[*]}" # outer scope
 
-	artifact_map_packages=(["armbian-zsh"]="armbian-zsh")
+	artifact_map_packages=(["atrios-zsh"]="atrios-zsh")
 
-	artifact_name="armbian-zsh"
+	artifact_name="atrios-zsh"
 	artifact_type="deb"
 	artifact_deb_repo="global"
 	artifact_deb_arch="all"
@@ -61,37 +61,37 @@ function artifact_armbian-zsh_prepare_version() {
 	return 0
 }
 
-function artifact_armbian-zsh_build_from_sources() {
-	LOG_SECTION="compile_armbian-zsh" do_with_logging compile_armbian-zsh
+function artifact_atrios-zsh_build_from_sources() {
+	LOG_SECTION="compile_atrios-zsh" do_with_logging compile_atrios-zsh
 }
 
-function artifact_armbian-zsh_cli_adapter_pre_run() {
+function artifact_atrios-zsh_cli_adapter_pre_run() {
 	declare -g ARMBIAN_COMMAND_REQUIRE_BASIC_DEPS="yes" # Require prepare_host_basic to run before the command.
 
 	# "gimme root on a Linux machine"
 	cli_standard_relaunch_docker_or_sudo
 }
 
-function artifact_armbian-zsh_cli_adapter_config_prep() {
+function artifact_atrios-zsh_cli_adapter_config_prep() {
 	use_board="no" prep_conf_main_minimal_ni < /dev/null # no stdin for this, so it bombs if tries to be interactive.
 }
 
-function artifact_armbian-zsh_get_default_oci_target() {
+function artifact_atrios-zsh_get_default_oci_target() {
 	artifact_oci_target_base="${GHCR_SOURCE}/armbian/os/"
 }
 
-function artifact_armbian-zsh_is_available_in_local_cache() {
+function artifact_atrios-zsh_is_available_in_local_cache() {
 	is_artifact_available_in_local_cache
 }
 
-function artifact_armbian-zsh_is_available_in_remote_cache() {
+function artifact_atrios-zsh_is_available_in_remote_cache() {
 	is_artifact_available_in_remote_cache
 }
 
-function artifact_armbian-zsh_obtain_from_remote_cache() {
+function artifact_atrios-zsh_obtain_from_remote_cache() {
 	obtain_artifact_from_remote_cache
 }
 
-function artifact_armbian-zsh_deploy_to_remote_cache() {
+function artifact_atrios-zsh_deploy_to_remote_cache() {
 	upload_artifact_to_oci
 }

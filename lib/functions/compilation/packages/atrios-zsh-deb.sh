@@ -7,14 +7,14 @@
 # This file is a part of the Armbian Build Framework
 # https://github.com/armbian/build/
 
-compile_armbian-zsh() {
+compile_atrios-zsh() {
 	: "${artifact_version:?artifact_version is not set}"
 	: "${ARMBIAN_ZSH_BRANCH:?ARMBIAN_ZSH_BRANCH is not set}"
 
 	declare cleanup_id="" tmp_dir=""
 	prepare_temp_dir_in_workdir_and_schedule_cleanup "deb-zsh" cleanup_id tmp_dir # namerefs
 
-	declare armbian_zsh_dir="armbian-zsh"
+	declare armbian_zsh_dir="atrios-zsh"
 	mkdir -p "${tmp_dir}/${armbian_zsh_dir}"
 
 	fetch_from_repo "$GITHUB_SOURCE/ohmyzsh/ohmyzsh" "oh-my-zsh" "${ARMBIAN_ZSH_BRANCH}"
@@ -26,14 +26,14 @@ compile_armbian-zsh() {
 
 	# set up control file
 	cat <<- END > DEBIAN/control
-		Package: armbian-zsh
+		Package: atrios-zsh
 		Version: ${artifact_version}
 		Architecture: all
 		Maintainer: $MAINTAINER <$MAINTAINERMAIL>
 		Depends: zsh, tmux
 		Section: utils
 		Priority: optional
-		Description: Armbian improved ZShell (oh-my-zsh...)
+		Description: AtriOS improved ZShell (oh-my-zsh...)
 	END
 
 	# set up post install script
@@ -78,12 +78,12 @@ compile_armbian-zsh() {
 	# define default plugins
 	sed -i 's/^plugins=.*/plugins=(evalcache git git-extras debian tmux screen history extract colorize web-search docker)/' "${tmp_dir}/${armbian_zsh_dir}"/etc/skel/.zshrc
 
-	# add collection of Armbian BASH aliases also to ZSH. They are compatible
+	# add collection of AtriOS BASH aliases also to ZSH. They are compatible
 	cat "${SRC}"/packages/bsp/common/etc/skel/.bash_aliases >> "${tmp_dir}/${armbian_zsh_dir}"/etc/skel/.zshrc
 
 	chmod 755 "${tmp_dir}/${armbian_zsh_dir}"/DEBIAN/postinst
 
-	dpkg_deb_build "${tmp_dir}/${armbian_zsh_dir}" "armbian-zsh"
+	dpkg_deb_build "${tmp_dir}/${armbian_zsh_dir}" "atrios-zsh"
 
 	done_with_temp_dir "${cleanup_id}" # changes cwd to "${SRC}" and fires the cleanup function early
 }
