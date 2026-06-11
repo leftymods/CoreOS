@@ -37,7 +37,7 @@
 # update_deb_kernel  : Install the kernel from .deb packages
 # update_uboot       : Update the U-Boot bootloader
 # update_initrd_addr : Adjust initrd/ramdisk address for Amlogic devices
-# update_os_version  : Update the AtriOS OS version string
+# update_os_version  : Update the AtriOS version string
 #
 # sos_kernel         : Rescue and restore the kernel to a target disk
 #
@@ -976,11 +976,11 @@ update_initrd_addr() {
     sync && echo ""
 }
 
-# Update the AtriOS OS version string
+# Update the AtriOS version string
 update_os_version() {
-    echo -e "${STEPS} Updating AtriOS OS version..."
+    echo -e "${STEPS} Updating AtriOS version..."
 
-    # Get the latest AtriOS OS version
+    # Get the latest AtriOS version
     os_version="$(
         curl -fsSL -m 15 \
             https://github.com/armbian/build/tags |
@@ -989,13 +989,13 @@ update_os_version() {
             sort -urV | head -n 1
     )"
 
-    # Update the AtriOS OS version
+    # Update the AtriOS version
     if [[ ${?} -eq 0 && -n "${os_version}" ]]; then
-        echo -e "${INFO} The latest AtriOS OS version: [ \${os_version} ]"
+        echo -e "${INFO} The latest AtriOS version: [ \${os_version} ]"
         sed -i "s|^VERSION=.*|VERSION=\"${os_version}\"|g" ${armbian_image_file} ${armbian_release_file}
         sed -i "s|^REVISION=.*|REVISION=\"${os_version}\"|g" ${armbian_image_file} ${armbian_release_file}
     else
-        echo -e "${PROMPT} Failed to query the latest AtriOS OS version. Skipping update."
+        echo -e "${PROMPT} Failed to query the latest AtriOS version. Skipping update."
     fi
 
     sync && echo ""
@@ -1159,7 +1159,7 @@ if [[ "${@}" =~ ^-s(\s)* ]]; then
 
     # Kernel restore successful
     sync && sleep 3
-    echo -e "${SUCCESS} Kernel rescue completed successfully. Please remove the disk and restart the AtriOS system."
+    echo -e "${SUCCESS} Kernel rescue completed successfully. Please remove the disk and restart AtriOS."
 elif [[ "${backup_only}" == "yes" ]]; then
     # Backup current kernel
     init_var "${@}"
