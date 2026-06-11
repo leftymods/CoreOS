@@ -23,7 +23,7 @@ function artifact_atrios-base-files_prepare_version() {
 	artifact_version_reason="undetermined" # outer scope
 
 	declare short_hash_size=4
-	declare fake_unchanging_base_version="1-${RELEASE}-1armbian1"
+	declare fake_unchanging_base_version="1-${RELEASE}-1atrios1"
 
 	declare found_package_version="undetermined" found_package_filename="undetermined" found_package_down_url="undetermined"
 	sleep_seconds="15" do_with_retries 10 apt_find_upstream_package_version_and_download_url "base-files"
@@ -49,7 +49,7 @@ function artifact_atrios-base-files_prepare_version() {
 	# outer scope
 	artifact_version="${fake_unchanging_base_version}-B${bash_hash_short}-U${base_files_cleaned_upstream_version_tag}"
 
-	declare -a reasons=("Armbian atrios-base-files" "original ${RELEASE} version \"${base_files_wanted_upstream_version}\"" "framework bash hash \"${bash_hash}\"")
+	declare -a reasons=("AtriOS atrios-base-files" "original ${RELEASE} version \"${base_files_wanted_upstream_version}\"" "framework bash hash \"${bash_hash}\"")
 
 	artifact_version_reason="${reasons[*]}" # outer scope
 
@@ -116,7 +116,7 @@ function compile_atrios-base-files() {
 	# Keep everything else from original
 	grep -vP '^(Maintainer|Version):' "${destination}/DEBIAN/control" >> "${destination}/DEBIAN/control.new"
 
-	# Replace 'Debian' with 'Armbian'.
+	# Replace 'Debian' with 'AtriOS'.
 	sed -i "s/Debian/${VENDOR}/g" "${destination}/DEBIAN/control.new"
 
 	mv "${destination}/DEBIAN/control.new" "${destination}/DEBIAN/control"
@@ -140,7 +140,7 @@ function compile_atrios-base-files() {
 	# Add armbian to the package conf files.
 	sed -i '/\/etc\/dpkg\/origins\/debian/a \/etc\/dpkg\/origins\/armbian' "${destination}"/DEBIAN/conffiles
 
-	# Fix symlinking in postinst for Debian and Ubuntu. They have to point towards Armbian, Armbian parent is Debian or Ubuntu -> Debian
+	# Fix symlinking in postinst for Debian and Ubuntu. They have to point towards AtriOS, AtriOS parent is Debian or Ubuntu -> Debian
 	sed -i -E -e "s/\origins\/ubuntu|debian/origins\/armbian/g" "${destination}"/DEBIAN/postinst
 	sed -i -E -e "s/ln -sf ubuntu|debian/ln -sf armbian/g" "${destination}"/DEBIAN/postinst
 
@@ -168,9 +168,9 @@ function compile_atrios-base-files() {
 	sed -i "s|^PRIVACY_POLICY_URL=.*|PRIVACY_POLICY_URL=\"${VENDORPRIVACY}\"|" "${destination}"/etc/os-release
 	sed -i "s|^LOGO=.*|LOGO=\"${VENDORLOGO}\"|" "${destination}"/etc/os-release
 
-	# Replace Ubuntu logo files with symlinks to Armbian's.
+	# Replace Ubuntu logo files with symlinks to AtriOS's.
 	# Ubuntu hardcodes lookups for ubuntu-logo*.svg / ubuntu-logo*.png
-	# in GNOME Settings → About and other places. The Armbian logos
+	# in GNOME Settings → About and other places. The AtriOS logos
 	# are shipped by armbian-bsp-cli (packages/bsp/common/usr/share/
 	# pixmaps/atrios-logo*). Since we own this base-files repack,
 	# we can safely replace the upstream files with relative symlinks.
