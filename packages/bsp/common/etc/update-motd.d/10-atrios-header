@@ -98,32 +98,29 @@ else
 fi
 
 # --- Board name and version line ---
-# Keep BOARD_NAME from Armbian files; only special-case RPi4 model tweak.
 if [[ "${BOARD:-}" == "rpi4b" ]]; then
 	BOARD_NAME="$(tr '\0' '\n' < /proc/device-tree/model | sed -E 's/ Rev [0-9.]+$//')"
 fi
 
-# Preserve Armbian VERSION; if it ends with "trunk", show "rolling"
-if [[ "${VERSION:-}" == *trunk* ]]; then
-	VERSION="$(printf '%s' "${VERSION}" | cut -d'.' -f1-2)"
-	VERSION="${VERSION} rolling"
-fi
-
-printf ' \e[0;92mv%s\x1B[0m for %s running Armbian Linux \e[0;92m%s\x1B[0m\n' \
-	"${VERSION}" "${BOARD_NAME}" "${KERNELID}"
+# Use git-based build number for AtriOSvN format
+BUILD_NUMBER="${BUILD_NUMBER:-1}"
+printf ' \e[1;92m%s\e[0;92mv%s\e[0m for %s running Armbian Linux \e[1;92m%s\e[0m\n' \
+	"${VENDOR}" "${BUILD_NUMBER}" "${BOARD_NAME}" "${KERNELID}"
 
 # --- Hardware support status ---
 HARDWARE_STATUS=""
-if [[ "${IMAGE_TYPE:-}" != "stable" ]]; then
+if [[ "${BOARD_TYPE:-}" == "conf" ]]; then
+	HARDWARE_STATUS=$'\e[0;92mOfficial\e[0m'
+elif [[ "${IMAGE_TYPE:-}" != "stable" ]]; then
 	case "${IMAGE_TYPE:-}" in
-		"user-built") HARDWARE_STATUS=$'\e[0;91mDIY\x1B[0m (custom image)\x1B[0m' ;;
-		"nightly")    HARDWARE_STATUS=$'\e[0;91mfor advanced users\x1B[0m (rolling release)\x1B[0m' ;;
+		"user-built") HARDWARE_STATUS=$'\e[0;93mDIY\e[0m' ;;
+		"nightly")    HARDWARE_STATUS=$'\e[0;93mrolling\e[0m' ;;
 	esac
 else
 	case "${BOARD_TYPE:-}" in
-		"csc"|"tvb") HARDWARE_STATUS=$'\e[0;91mDIY (community maintained)\x1B[0m' ;;
-		"wip")       HARDWARE_STATUS=$'\e[0;91mfor advanced users\x1B[0m (work in progress)\x1B[0m' ;;
-		"eos")       HARDWARE_STATUS=$'\e[0;91mend of life\x1B[0m' ;;
+		"csc"|"tvb") HARDWARE_STATUS=$'\e[0;93mcommunity\e[0m' ;;
+		"wip")       HARDWARE_STATUS=$'\e[0;93mwork in progress\e[0m' ;;
+		"eos")       HARDWARE_STATUS=$'\e[0;91mend of life\e[0m' ;;
 	esac
 fi
 
@@ -155,13 +152,12 @@ fi
 printf '\n'
 
 # --- Display summary ---
+[[ -n "${HARDWARE_STATUS}" ]] && printf ' \e[1;90mSupport:\e[0m    %b\n' "${HARDWARE_STATUS}"
 if [[ -n "${DISTRO_STATUS:-}" ]]; then
 	[[ -n "${upgrade}" ]] && DISTRO_STATUS+=", possible distro upgrade (${upgrade})"
-	printf ' Packages:     %s %b\n' "${DISTRIBUTION_ID^}" "${DISTRO_STATUS}"
+	printf ' \e[1;90mPackages:\e[0m   %s %b\n' "${DISTRIBUTION_ID^}" "${DISTRO_STATUS}"
 fi
-
-[[ -n "${UPDATE_STATUS}" ]] && printf ' Updates:      %b\n' "${UPDATE_STATUS}"
-[[ -n "${HARDWARE_STATUS}" ]] && printf ' Support:      %b\n' "${HARDWARE_STATUS}"
+[[ -n "${UPDATE_STATUS}" ]] && printf ' \e[1;90mUpdates:\e[0m    %b\n' "${UPDATE_STATUS}"
 
 # ensure zero exit when executed directly
 (return 0 2>/dev/null) || exit 0

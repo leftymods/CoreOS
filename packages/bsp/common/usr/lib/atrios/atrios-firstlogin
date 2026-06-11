@@ -839,7 +839,9 @@ if [[ -f /root/.not_logged_in_yet && -n $(tty) ]]; then
 	trap - INT TERM EXIT
 
 	# display support status
-	if [ "$IMAGE_TYPE" != "nightly" ]; then
+	if [[ "$BOARD_TYPE" == "conf" ]]; then
+		echo -e "\n\e[0;32mSupport status: Official\x1B[0m"
+	elif [ "$IMAGE_TYPE" != "nightly" ]; then
 		if [[ "$BRANCH" == "edge" ]]; then
 			echo -e "\nSupport status: \e[0;31mcommunity support\x1B[0m (edge kernel branch)"
 		elif [[ "$DISTRIBUTION_STATUS" != "supported" ]]; then
@@ -848,13 +850,11 @@ if [[ -f /root/.not_logged_in_yet && -n $(tty) ]]; then
 			echo -e "\nSupport status: \e[0;31mcommunity support\x1B[0m (looking for a dedicated maintainer)"
 		fi
 	else
-
 		echo -e "\e[0;31m\nDeveloper Preview Build\x1B[0m\n"
 		echo -e "This Armbian image was generated automatically for development and testing purpose."
 		echo -e "It may include unfinished features or unstable components.\n"
 		echo -e "If you are not here to report issues or just test it, \e[0;31mplease do not use this image in production.\x1B[0m"
 		echo -e "Expect things to change — or even break — as improvements are made."
-
 	fi
 
 	# ask user to select shell

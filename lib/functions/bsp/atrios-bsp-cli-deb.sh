@@ -274,9 +274,15 @@ function reversion_atrios-bsp-cli_deb_contents() {
 	artifact_deb_reversion_unpack_data_deb
 	: "${data_dir:?data_dir is not set}"
 
+	declare -g BUILD_NUMBER="1"
+	if git rev-parse --git-dir >/dev/null 2>&1; then
+		BUILD_NUMBER="$(git rev-list --count HEAD 2>/dev/null || echo "1")"
+	fi
+
 	cat <<- EOF >> "${data_dir}"/etc/atrios-release
 		VERSION=${REVISION}
 		REVISION=$REVISION
+		BUILD_NUMBER=${BUILD_NUMBER}
 	EOF
 
 	# Show results if debugging
@@ -375,7 +381,7 @@ function board_side_bsp_cli_preinst() {
 	sysctl -p > /dev/null 2>&1
 	# replace canonical advertisement
 	if [[ -d "/var/lib/ubuntu-advantage/messages/" ]]; then
-		echo -e "\nSupport Armbian! \nLearn more at https://armbian.com/donate" > /var/lib/ubuntu-advantage/messages/apt-pre-invoke-esm-service-status
+		echo -e "\nSupport AtriOS! \nLearn more at https://github.com/leftymods/CoreOS" > /var/lib/ubuntu-advantage/messages/apt-pre-invoke-esm-service-status
 		cp /var/lib/ubuntu-advantage/messages/apt-pre-invoke-esm-service-status /var/lib/ubuntu-advantage/messages/apt-pre-invoke-no-packages-apps.tmpl
 		cp /var/lib/ubuntu-advantage/messages/apt-pre-invoke-esm-service-status /var/lib/ubuntu-advantage/messages/apt-pre-invoke-packages-apps
 		cp /var/lib/ubuntu-advantage/messages/apt-pre-invoke-esm-service-status /var/lib/ubuntu-advantage/messages/apt-pre-invoke-packages-apps.tmpl
