@@ -48,11 +48,18 @@ function apt_find_upstream_package_version_and_download_url() {
 			package_info_download_url="https://${GHPROXY_ADDRESS}/https://raw.githubusercontent.com/armbian/armbian.github.io/refs/heads/data/data/${sought_package_name}.json"
 			;;
 		*)
-			package_info_download_url="https://github.armbian.com/${sought_package_name}.json"
+			package_info_download_url="https://raw.githubusercontent.com/armbian/armbian.github.io/refs/heads/data/data/${sought_package_name}.json"
 			;;
 	esac
 	package_info_download_url_file="$(mktemp)"
-	curl --silent --show-error --max-time 10 $package_info_download_url -o $package_info_download_url_file
+	declare -i curl_attempts=0 curl_max_attempts=3
+	while [[ $curl_attempts -lt $curl_max_attempts ]]; do
+		curl_attempts+=1
+		if curl --silent --show-error --max-time 10 "$package_info_download_url" -o "$package_info_download_url_file" 2>/dev/null; then
+			break
+		fi
+		[[ $curl_attempts -lt $curl_max_attempts ]] && sleep 5
+	done
 	found_package_filename=$(
 		jq -r --arg release "${package_download_release}" --arg arch "${ARCH}" \
 			'.[$release][$arch]' $package_info_download_url_file
