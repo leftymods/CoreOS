@@ -11,7 +11,7 @@
 # Description: Change the APT mirror source of the system
 # Copyright (C) 2021- https://github.com/ophub/amlogic-s9xxx-armbian
 #
-# Command: armbian-apt
+# Command: atrios-apt
 #
 #============================= Functions list #=============================
 #
@@ -53,8 +53,8 @@ check_release() {
         [[ -z "${VERSION_CODENAME}" ]] && error_msg "System VERSION_CODENAME not detected!"
 
         # Set the source files
-        armbian_source_file="/etc/apt/sources.list.d/${VERSION_CODEID}.sources"
-        armbian_source_backup_file="/etc/apt/sources.list.d/${VERSION_CODEID}.sources.bak"
+        atrios_source_file="/etc/apt/sources.list.d/${VERSION_CODEID}.sources"
+        atrios_source_backup_file="/etc/apt/sources.list.d/${VERSION_CODEID}.sources.bak"
 
     else
         error_msg "System release file not found!"
@@ -64,8 +64,8 @@ check_release() {
 # Backup the source list
 backup_source_list() {
     # If the source file exists and the backup file does not exist, then back up the source file to the backup file
-    [[ -f "${armbian_source_file}" && ! -f "${armbian_source_backup_file}" ]] && {
-        cp -f "${armbian_source_file}" "${armbian_source_backup_file}"
+    [[ -f "${atrios_source_file}" && ! -f "${atrios_source_backup_file}" ]] && {
+        cp -f "${atrios_source_file}" "${atrios_source_backup_file}"
     }
 
     # Disable outdated APT source files
@@ -127,7 +127,7 @@ change_source_list() {
             components+=("non-free-firmware")
         fi
 
-        cat >${armbian_source_file} <<EOF
+        cat >${atrios_source_file} <<EOF
             Types: deb
             URIs: ${DEBIAN_MIRROR}
             Suites: ${suites[@]}
@@ -136,7 +136,7 @@ change_source_list() {
 
 EOF
         if [[ ${#security_suites[@]} -gt 0 ]]; then
-            cat >>${armbian_source_file} <<EOF
+            cat >>${atrios_source_file} <<EOF
             Types: deb
             URIs: ${DEBIAN_SECURITY}/
             Suites: ${security_suites[@]}
@@ -148,7 +148,7 @@ EOF
         ;;
 
     resolute | focal | jammy | noble | oracular | plucky | questing)
-        cat >${armbian_source_file} <<EOF
+        cat >${atrios_source_file} <<EOF
             Types: deb
             URIs: ${UBUNTU_MIRROR}/
             Suites: ${VERSION_CODENAME} ${VERSION_CODENAME}-security ${VERSION_CODENAME}-updates ${VERSION_CODENAME}-backports
@@ -159,7 +159,7 @@ EOF
         ;;
 
     sid | unstable)
-        cat >${armbian_source_file} <<EOF
+        cat >${atrios_source_file} <<EOF
             Types: deb
             URIs: ${DEBIAN_MIRROR}/
             Suites: ${VERSION_CODENAME}
@@ -176,7 +176,7 @@ EOF
     esac
 
     # Remove the space at the beginning of each line
-    sed -i 's|^[ \t]*||' "${armbian_source_file}"
+    sed -i 's|^[ \t]*||' "${atrios_source_file}"
     echo -e "${SUCCESS} APT mirror source changed successfully."
 }
 
@@ -187,9 +187,9 @@ select_mirror_site() {
 
     # ID 0: restore default source from backup
     if [[ "${source_id}" == "0" ]]; then
-        if [[ -f "${armbian_source_backup_file}" ]]; then
+        if [[ -f "${atrios_source_backup_file}" ]]; then
             # Restore the source file from the backup file
-            cp -f "${armbian_source_backup_file}" "${armbian_source_file}"
+            cp -f "${atrios_source_backup_file}" "${atrios_source_file}"
             [[ -f "/etc/apt/sources.list.bak" ]] && cp -f /etc/apt/sources.list.bak /etc/apt/sources.list
 
             echo -e "${SUCCESS} Default source restored successfully."

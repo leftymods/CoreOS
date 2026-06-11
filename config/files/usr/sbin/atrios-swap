@@ -12,7 +12,7 @@
 # Copyright (C) 2021- https://github.com/unifreq/openwrt_packit
 # Copyright (C) 2021- https://github.com/ophub/amlogic-s9xxx-armbian
 #
-# Command: armbian-swap 1
+# Command: atrios-swap 1
 # The input parameter unit is GiB, the default is 1
 #
 #=========================================================================
@@ -62,7 +62,7 @@ do_checkdisk() {
         ;;
     esac
 
-    # Find out if the extended partition was created using armbian-tf on TF/USB storage
+    # Find out if the extended partition was created using atrios-tf on TF/USB storage
     find_right_path="/mnt/${DISK_NAME}${PARTITION_NAME}2"
     if [[ -d "${find_right_path}" ]]; then
         PARTITION_PATH="${find_right_path}"
@@ -120,7 +120,7 @@ create_the_swap() {
     echo "${SWAP_PATH}/swapfile swap swap defaults 0 0" >>/etc/fstab
 
     # Disable zram swap
-    zram_config="/etc/default/armbian-zram-config"
+    zram_config="/etc/default/atrios-zram-config"
     [[ -f "${zram_config}" ]] && sed -i "s|# SWAP=false|SWAP=false|g" ${zram_config}
 
     sync && sleep 3

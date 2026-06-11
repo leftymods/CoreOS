@@ -5,7 +5,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# This file is a part of the Rebuild Armbian
+# This file is a part of the Rebuild AtriOS
 # https://github.com/ophub/amlogic-s9xxx-armbian
 #
 # Function: Shared utility functions for software management scripts
@@ -28,7 +28,7 @@
 #========================== Set default parameters ==========================
 #
 # Get custom firmware information
-software_path="/usr/share/ophub/armbian-software"
+software_path="/usr/share/ophub/atrios-software"
 command_docker="${software_path}/command-docker.sh"
 ophub_release_file="/etc/ophub-release"
 #

@@ -39,7 +39,7 @@
 #============================================================================
 
 # Execute generic functions
-software_path="/usr/share/ophub/armbian-software"
+software_path="/usr/share/ophub/atrios-software"
 software_command="${software_path}/software-command.sh"
 source "${software_command}"
 

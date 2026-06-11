@@ -13,9 +13,9 @@
 # Copyright (C) 2021- https://github.com/ophub/amlogic-s9xxx-armbian
 #
 # Usage              : Command
-# Install Docker     : armbian-docker
-# Update  Docker     : armbian-docker update
-# Remove  Docker     : armbian-docker remove
+# Install Docker     : atrios-docker
+# Update  Docker     : atrios-docker update
+# Remove  Docker     : atrios-docker remove
 #
 #========================= Set default parameters ==========================
 #

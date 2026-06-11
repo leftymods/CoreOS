@@ -5,7 +5,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# This file is a part of the Rebuild Armbian
+# This file is a part of the Rebuild AtriOS
 # https://github.com/ophub/amlogic-s9xxx-armbian
 #
 # Function: Manage service software installation, update, and removal
@@ -31,7 +31,7 @@
 #============================================================================
 
 # Execute generic functions
-software_path="/usr/share/ophub/armbian-software"
+software_path="/usr/share/ophub/atrios-software"
 software_command="${software_path}/software-command.sh"
 source "${software_command}"
 
@@ -457,8 +457,8 @@ EOF
 
         # Disable zram
         echo -e "${INFO} Disable zram service."
-        sudo systemctl disable armbian-zram-config.service
-        sudo systemctl disable armbian-ramlog.service
+        sudo systemctl disable atrios-zram-config.service
+        sudo systemctl disable atrios-ramlog.service
 
         # Remove ceph-dkms package error
         echo -e "${INFO} Remove ceph-dkms package error."
@@ -503,7 +503,7 @@ EOF
         sync && sleep 3
         echo -e "${NOTE} The network address: [ https://${my_address}:8006 ]"
         echo -e "${NOTE} Username and Password: [  Your system account ]"
-        echo -e "${SUCCESS} PVE installation is successful, please [ reboot ] Armbian."
+        echo -e "${SUCCESS} PVE installation is successful, please [ reboot ] AtriOS."
         ;;
     update) software_update ;;
     remove) software_remove "${pve_package_list}" ;;

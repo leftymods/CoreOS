@@ -5,7 +5,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# This file is a part of the Rebuild Armbian
+# This file is a part of the Rebuild AtriOS
 # https://github.com/ophub/amlogic-s9xxx-armbian
 #
 # Function: Customize the startup script. Add content as needed.
@@ -47,9 +47,9 @@ FDTFILE=""
 # 3) /boot/extlinux/extlinux.conf : "    fdt /dtb/.../xxx.dtb"
 [[ -z "${FDTFILE}" && -f "/boot/extlinux/extlinux.conf" ]] &&
     FDTFILE="$(grep -Eo '/dtb/[^[:space:]]+\.dtb' /boot/extlinux/extlinux.conf 2>/dev/null | head -n1 | sed -E 's#.*/##')"
-# 4) /boot/armbianEnv.txt : fdtfile=vendor/xxx.dtb  (or fdtfile=xxx.dtb)
-[[ -z "${FDTFILE}" && -f "/boot/armbianEnv.txt" ]] &&
-    FDTFILE="$(grep -E '^fdtfile=.*\.dtb$' /boot/armbianEnv.txt 2>/dev/null | head -n1 | sed -E 's#^fdtfile=##; s#.*/##')"
+# 4) /boot/atriosEnv.txt : fdtfile=vendor/xxx.dtb  (or fdtfile=xxx.dtb)
+[[ -z "${FDTFILE}" && -f "/boot/atriosEnv.txt" ]] &&
+    FDTFILE="$(grep -E '^fdtfile=.*\.dtb$' /boot/atriosEnv.txt 2>/dev/null | head -n1 | sed -E 's#^fdtfile=##; s#.*/##')"
 log_message "Detected FDT file: ${FDTFILE:-not found}"
 
 # Device-Specific Services
@@ -154,12 +154,12 @@ openvfd_restart="no" # yes or no, set to "yes" to restart the OpenVFD service.
 if [[ "${openvfd_boxid}" != "0" && "${FDTFILE}" =~ ^meson- ]]; then
     (
         # Start OpenVFD service
-        [[ "${openvfd_enable}" == "yes" ]] && armbian-openvfd "${openvfd_boxid}" >/dev/null 2>&1
+        [[ "${openvfd_enable}" == "yes" ]] && atrios-openvfd "${openvfd_boxid}" >/dev/null 2>&1
         # Some devices require a restart to clear 'BOOT' and related messages
         [[ "${openvfd_restart}" == "yes" ]] && {
-            armbian-openvfd "0" >/dev/null 2>&1
+            atrios-openvfd "0" >/dev/null 2>&1
             sleep 3
-            armbian-openvfd "${openvfd_boxid}" >/dev/null 2>&1
+            atrios-openvfd "${openvfd_boxid}" >/dev/null 2>&1
         }
         log_message "OpenVFD service execution attempted."
     ) &
@@ -193,7 +193,7 @@ fi
 # Maximize root partition size
 todo_rootfs_resize="/root/.no_rootfs_resize"
 [[ -f "${todo_rootfs_resize}" && "$(cat ${todo_rootfs_resize} 2>/dev/null | xargs)" == "yes" ]] && {
-    armbian-tf >/dev/null 2>&1 &
+    atrios-tf >/dev/null 2>&1 &
     log_message "Root partition resize completed."
 }
 

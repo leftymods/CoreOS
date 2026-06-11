@@ -29,14 +29,14 @@
 #=============================== Set make environment variables ===============================
 #
 # Related file storage path
-software_path="/usr/share/ophub/armbian-software"
+software_path="/usr/share/ophub/atrios-software"
 software_conf="${software_path}/software-list.conf"
 ophub_release_file="/etc/ophub-release"
 arch_info="$(arch)"
 #
 # The software management scripts download repository
 script_repo="https://github.com/ophub/amlogic-s9xxx-armbian.git"
-script_dir="build-armbian/armbian-files/common-files/usr/share/ophub/armbian-software"
+script_dir="build-armbian/armbian-files/common-files/usr/share/ophub/atrios-software"
 #
 # Set font color
 STEPS="[\033[95m STEPS \033[0m]"
@@ -261,7 +261,7 @@ help_info() {
     clear
     cat <<EOF
 ======================================================================
-Command Example : armbian-software -u
+Command Example : atrios-software -u
              -u : Update    Update install software script.
              -c : Clear     Clear the local install software script.
              -h : Help      Help information display.
@@ -276,7 +276,7 @@ EOF
 [[ "$(id -u)" == "0" ]] || error_msg "Please run this script as root: [ sudo $0 ]"
 [[ "${arch_info}" == "aarch64" ]] || error_msg "This script only supports running on AtriOS (aarch64) systems."
 # Ensure the software configuration file exists
-[[ -f "${software_conf}" ]] || echo -e "${INFO} Please run [ armbian-software -u ] to update the software management scripts."
+[[ -f "${software_conf}" ]] || echo -e "${INFO} Please run [ atrios-software -u ] to update the software management scripts."
 # Check system release information
 check_release
 # Check and install runtime dependencies

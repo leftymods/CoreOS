@@ -12,7 +12,7 @@
 # Copyright (C) 2021- https://github.com/unifreq
 # Copyright (C) 2021- https://github.com/ophub/amlogic-s9xxx-armbian
 #
-# Command: armbian-kernel
+# Command: atrios-kernel
 # Command optional parameters please refer to the source code repository
 #
 #======================================= Functions list =======================================
@@ -32,7 +32,7 @@ out_kernel="${compile_path}/output"
 config_path="${compile_path}/tools/config"
 script_path="${compile_path}/tools/script"
 compile_script="${make_path}/recompile"
-script_name="${script_path}/armbian_compile_kernel.sh"
+script_name="${script_path}/atrios_compile_kernel.sh"
 arch_info="$(arch)"
 
 # The kernel compilation scripts download repository
@@ -106,7 +106,7 @@ update_script() {
 
     # Install compilation dependencies
     echo -e "${INFO} Installing compilation dependencies..."
-    sudo apt-get install -y $(cat ${script_path}/armbian-compile-kernel-depends)
+    sudo apt-get install -y $(cat ${script_path}/atrios-compile-kernel-depends)
     [[ "${?}" -ne "0" ]] && error_msg "Failed to install dependencies."
 
     sync && sleep 3
@@ -130,7 +130,7 @@ help_info() {
 ======================================================================================================================================
 
 01. Detailed instructions for compiling the kernel, list of optional parameters:
-    Command: armbian-kernel -k 6.1.y -a true -m dtbs -t gcc
+    Command: atrios-kernel -k 6.1.y -a true -m dtbs -t gcc
     -k : Kernel       Set the kernel version, such as [ -k 6.1.y ]
     -a : AutoKernel   Set whether to automatically compile the latest version, such as [ -a true ], Optional: [ true/false ]
     -m : MakePackage  Set the package list for compiling the kernel, such as [ -m dtbs ], Optional: [ dtbs/all ]
@@ -145,7 +145,7 @@ help_info() {
     -c : CcacheClear  Set whether to clear ccache before compiling, such as [ -c true ], Optional: [ true/false ]
 
 02. Script assist functions:
-    Command: armbian-kernel -u
+    Command: atrios-kernel -u
     -u : Update       Update the local compile script to the latest version.
     -c : Clear        Clear the local kernel source and generated files.
 
@@ -168,7 +168,7 @@ case "${1}" in
     -c | --clean)  clean_tmp ;;
     -h | --help)   help_info ;;
     *)
-        [[ -f "${compile_script}" ]] || error_msg "Please run [ armbian-kernel -u ] to update scripts."
+        [[ -f "${compile_script}" ]] || error_msg "Please run [ atrios-kernel -u ] to update scripts."
         cd ${make_path} && sudo ${compile_script} "${@}"
         ;;
 esac
