@@ -1,0 +1,14 @@
+[Unit]
+Description=AtriOS lowmem: Create a swapfile
+DefaultDependencies=no
+Wants=atrios-resize-filesystem.service
+After=atrios-resize-filesystem.service
+Before=basic.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/lowmem-mkswap.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=basic.target

@@ -7,7 +7,7 @@ After=local-fs.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/lib/armbian/c1_init.sh
+ExecStart=/usr/lib/atrios/c1_init.sh
 RemainAfterExit=no
 
 [Install]

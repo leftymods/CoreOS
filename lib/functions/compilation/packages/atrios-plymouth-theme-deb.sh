@@ -16,7 +16,7 @@ compile_atrios-plymouth-theme() {
 	declare plymouth_theme_armbian_dir="atrios-plymouth-theme"
 	mkdir -p "${tmp_dir}/${plymouth_theme_armbian_dir}"
 
-	run_host_command_logged mkdir -p "${tmp_dir}/${plymouth_theme_armbian_dir}"/{DEBIAN,usr/share/plymouth/themes/armbian}
+	run_host_command_logged mkdir -p "${tmp_dir}/${plymouth_theme_armbian_dir}"/{DEBIAN,usr/share/plymouth/themes/atrios}
 
 	cd "${tmp_dir}/${plymouth_theme_armbian_dir}" || exit_with_error "can't change directory"
 
@@ -32,28 +32,28 @@ compile_atrios-plymouth-theme() {
 		Description: boot animation, logger and I/O multiplexer - AtriOS theme
 	END
 
-	run_host_command_logged cp "${SRC}"/packages/plymouth-theme-armbian/debian/{postinst,prerm,postrm} \
+	run_host_command_logged cp "${SRC}"/packages/plymouth-theme-atrios/debian/{postinst,prerm,postrm} \
 		"${tmp_dir}/${plymouth_theme_armbian_dir}"/DEBIAN/
 	chmod 755 "${tmp_dir}/${plymouth_theme_armbian_dir}"/DEBIAN/{postinst,prerm,postrm}
 
 	# this requires `imagemagick`
 
 	run_host_command_logged convert -resize 256x256 \
-		"${SRC}"/packages/plymouth-theme-armbian/armbian-logo.png \
-		"${tmp_dir}/${plymouth_theme_armbian_dir}"/usr/share/plymouth/themes/armbian/bgrt-fallback.png
+		"${SRC}"/packages/plymouth-theme-atrios/atrios-logo.png \
+		"${tmp_dir}/${plymouth_theme_armbian_dir}"/usr/share/plymouth/themes/atrios/bgrt-fallback.png
 
 	run_host_command_logged convert -resize 52x52 \
-		"${SRC}"/packages/plymouth-theme-armbian/spinner.gif \
-		"${tmp_dir}/${plymouth_theme_armbian_dir}"/usr/share/plymouth/themes/armbian/throbber-%04d.png
+		"${SRC}"/packages/plymouth-theme-atrios/spinner.gif \
+		"${tmp_dir}/${plymouth_theme_armbian_dir}"/usr/share/plymouth/themes/atrios/throbber-%04d.png
 
-	run_host_command_logged cp "${SRC}"/packages/plymouth-theme-armbian/watermark.png \
-		"${tmp_dir}/${plymouth_theme_armbian_dir}"/usr/share/plymouth/themes/armbian/
+	run_host_command_logged cp "${SRC}"/packages/plymouth-theme-atrios/watermark.png \
+		"${tmp_dir}/${plymouth_theme_armbian_dir}"/usr/share/plymouth/themes/atrios/
 
-	run_host_command_logged cp "${SRC}"/packages/plymouth-theme-armbian/{bullet,capslock,entry,keyboard,keymap-render,lock}.png \
-		"${tmp_dir}/${plymouth_theme_armbian_dir}"/usr/share/plymouth/themes/armbian/
+	run_host_command_logged cp "${SRC}"/packages/plymouth-theme-atrios/{bullet,capslock,entry,keyboard,keymap-render,lock}.png \
+		"${tmp_dir}/${plymouth_theme_armbian_dir}"/usr/share/plymouth/themes/atrios/
 
-	run_host_command_logged cp "${SRC}"/packages/plymouth-theme-armbian/armbian.plymouth \
-		"${tmp_dir}/${plymouth_theme_armbian_dir}"/usr/share/plymouth/themes/armbian/
+	run_host_command_logged cp "${SRC}"/packages/plymouth-theme-atrios/atrios.plymouth \
+		"${tmp_dir}/${plymouth_theme_armbian_dir}"/usr/share/plymouth/themes/atrios/
 
 	dpkg_deb_build "${tmp_dir}/${plymouth_theme_armbian_dir}" "atrios-plymouth-theme"
 

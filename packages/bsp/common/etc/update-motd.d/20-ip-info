@@ -9,20 +9,20 @@ safe_source() { [[ -f "$1" ]] && . "$1"; }
 THIS_SCRIPT="ip-info"
 MOTD_DISABLE=""
 
-# Defaults (can be overridden by /etc/default/armbian-motd if present)
+# Defaults (can be overridden by /etc/default/atrios-motd if present)
 HIDE_IP_PATTERN='^dummy0|^lo|^docker|^hassio|^br-|^veth|^vnet|^virbr'
 HIDE_LOCAL_IPV6="true"
 
 # Optional overrides
-safe_source /etc/default/armbian-motd
+safe_source /etc/default/atrios-motd
 for f in ${MOTD_DISABLE}; do
 	[[ "${f}" == "${THIS_SCRIPT}" ]] && exit 0
 done
 
 # one-time spacer after header (marks that something printed before Performance)
 _motd_mark_after_header() {
-  local base="/run/armbian-motd"
-  mkdir -p "$base" 2>/dev/null || base="${XDG_RUNTIME_DIR:-/tmp}/armbian-motd"
+  local base="/run/atrios-motd"
+  mkdir -p "$base" 2>/dev/null || base="${XDG_RUNTIME_DIR:-/tmp}/atrios-motd"
   mkdir -p "$base" 2>/dev/null || return 0
   local stamp="${base}/.after_header.printed"
   [[ -e "$stamp" ]] || { echo ""; : >"$stamp"; }
@@ -67,7 +67,7 @@ print_ip_lines() {
   # print a single blank line before the first post-header section
   _motd_spacer() {
     local tag="${1:-after-header}"
-    local dir="/run/armbian-motd"; local stamp="$dir/.${tag}.printed"
+    local dir="/run/atrios-motd"; local stamp="$dir/.${tag}.printed"
     mkdir -p "$dir" 2>/dev/null
     [[ -e "$stamp" ]] || { echo ""; : > "$stamp"; }
   }

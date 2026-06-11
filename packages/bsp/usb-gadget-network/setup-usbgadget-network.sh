@@ -1,7 +1,7 @@
 #!/bin/bash
 
 deviceinfo_name="USB Gadget Network"
-deviceinfo_manufacturer="Armbian"
+deviceinfo_manufacturer="AtriOS"
 #deviceinfo_usb_idVendor=
 #deviceinfo_usb_idProduct=
 #deviceinfo_usb_serialnumber=

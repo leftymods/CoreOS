@@ -4,7 +4,7 @@
 
 dev=$1
 
-# Armbian Tweak - Execute even if systemd is present
+# AtriOS Tweak - Execute even if systemd is present
 #if [ -e /run/systemd/system ] ; then
 #    exit 0
 #fi

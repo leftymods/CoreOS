@@ -6,7 +6,7 @@ After=network.target
 [Service]
 Type=oneshot
 ExecStartPre=/usr/bin/sleep 20
-ExecStart=/usr/lib/armbian/jethub-ethreset
+ExecStart=/usr/lib/atrios/jethub-ethreset
 
 [Install]
 WantedBy=multi-user.target

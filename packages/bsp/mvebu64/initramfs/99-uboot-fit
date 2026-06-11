@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /etc/armbian-release
+. /etc/atrios-release
 
 echo "update-initramfs: Converting to u-boot FIT image" >&2
 kernel_f=$(mktemp)

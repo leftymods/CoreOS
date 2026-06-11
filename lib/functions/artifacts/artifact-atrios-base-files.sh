@@ -172,7 +172,7 @@ function compile_atrios-base-files() {
 	# Ubuntu hardcodes lookups for ubuntu-logo*.svg / ubuntu-logo*.png
 	# in GNOME Settings → About and other places. The Armbian logos
 	# are shipped by armbian-bsp-cli (packages/bsp/common/usr/share/
-	# pixmaps/armbian-logo*). Since we own this base-files repack,
+	# pixmaps/atrios-logo*). Since we own this base-files repack,
 	# we can safely replace the upstream files with relative symlinks.
 	if [[ -d "${destination}/usr/share/pixmaps" ]]; then
 		for suffix in ".svg" "-text.png" "-text-dark.png" "-text.svg" "-text-dark.svg"; do
@@ -182,7 +182,7 @@ function compile_atrios-base-files() {
 			local upstream="${destination}/usr/share/pixmaps/ubuntu-logo${suffix}"
 			if [[ -f "${upstream}" ]]; then
 				rm -f "${upstream}"
-				ln -sf "armbian-logo${suffix}" "${upstream}"
+				ln -sf "atrios-logo${suffix}" "${upstream}"
 			fi
 		done
 	fi

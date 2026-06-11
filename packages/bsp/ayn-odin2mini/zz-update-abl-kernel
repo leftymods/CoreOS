@@ -5,7 +5,7 @@ gzip -c /boot/vmlinuz-*-sm8550-arm64 > /tmp/Image.gz
 
 cat /tmp/Image.gz /usr/lib/linux-image-*-sm8550-arm64/qcom/qcs8550-ayn-odin2-hypdtbo.dtb > /tmp/Image.gz-dtb
 
-source /boot/armbianEnv.txt
+source /boot/atriosEnv.txt
 /usr/bin/mkbootimg \
         --kernel /tmp/Image.gz-dtb \
         --ramdisk /boot/initrd.img-*-sm8550-arm64 \
@@ -16,5 +16,5 @@ source /boot/armbianEnv.txt
         --ramdisk_offset 0x1000000 \
         --tags_offset 0x100 \
         --pagesize 4096 \
-        -o /boot/armbian-kernel.img
+        -o /boot/atrios-kernel.img
 rm -f /tmp/Image.gz /tmp/Image.gz-dtb

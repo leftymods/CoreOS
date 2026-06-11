@@ -378,7 +378,7 @@ usage() {
     echo '    -  Fan 12V (.08A and .2A)'
     echo '  And software:'
     echo '    -  Kernel: Linux 4.4.231-rk3399'
-    echo '    -  OS: Armbian Buster (20.08.9) stable'
+    echo '    -  OS: AtriOS Buster (20.08.9) stable'
     echo '    -  GNU bash v5.0.3'
     echo '    -  bc v1.07.1'
     echo ''

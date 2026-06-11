@@ -5,9 +5,9 @@ ConditionACPower=true
 
 [Service]
 Type=oneshot
-ExecStartPre=/usr/lib/armbian/armbian-ramlog write
+ExecStartPre=/usr/lib/atrios/atrios-ramlog write
 ExecStart=/usr/sbin/logrotate /etc/logrotate.conf
-ExecStartPost=/usr/lib/armbian/armbian-ramlog postrotate
+ExecStartPost=/usr/lib/atrios/atrios-ramlog postrotate
 
 # performance options
 Nice=19

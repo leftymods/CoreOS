@@ -55,7 +55,7 @@
 #
 # ethtool -s eth0 speed 100 duplex full / ethtool -s eth0 speed 1000 duplex full
 #
-# More information (and discussion in case questions arise!) in Armbian forum:
+# More information (and discussion in case questions arise!) in AtriOS forum:
 # https://forum.armbian.com/index.php/topic/1614-running-h3-boards-with-minimal-consumption/
 # https://forum.armbian.com/index.php/topic/1748-sbc-consumptionperformance-comparisons/
 # https://forum.armbian.com/index.php/topic/1823-opi-pc-wireless-not-powering-off/
@@ -114,9 +114,9 @@ Main() {
 } # Main
 
 CheckInstallation() {
-	# check if tool can rely on Armbian environment
-	if [ ! -f /etc/armbian.txt ]; then
-		echo -e "Error. This tool requires an Armbian installation. Exiting." >&2
+	# check if tool can rely on AtriOS environment
+	if [ ! -f /etc/atrios.txt ]; then
+		echo -e "Error. This tool requires an AtriOS installation. Exiting." >&2
 		exit 1
 	fi
 	
@@ -217,9 +217,9 @@ ChangeSettings() {
 			echo 'ethtool -s eth0 speed 100 duplex full' >>"${RCLocalContents}"
 			;;
 		on)
-			BOARD=$(awk -F"=" '/^BOARD=/ {print $2}' </etc/armbian-release)
+			BOARD=$(awk -F"=" '/^BOARD=/ {print $2}' </etc/atrios-release)
 			if [ "X${BOARD}" = "X" ]; then
-				echo "Armbian installation too old, please apt-get upgrade before. Exiting." >&2
+				echo "AtriOS installation too old, please apt-get upgrade before. Exiting." >&2
 				exit 1
 			else
 				OrigSettings=$(bin2fex /boot/bin/${BOARD}.bin 2>/dev/null | awk -F" " '/^gmac_used/ {print $3}')
@@ -314,7 +314,7 @@ ChangeSettings() {
 		"")
 			: ;;
 		*)
-			BOARD=$(awk -F"=" '/^BOARD=/ {print $2}' </etc/armbian-release)
+			BOARD=$(awk -F"=" '/^BOARD=/ {print $2}' </etc/atrios-release)
 			case ${BOARD} in
 				nanopineo|nanopiair)
 					HardwareUpperLimit=432

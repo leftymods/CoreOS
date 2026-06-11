@@ -71,7 +71,7 @@ Main() {
 	fi
 
 	# check for supported boards
-	/bin/bash -n /etc/armbian-release && . /etc/armbian-release
+	/bin/bash -n /etc/atrios-release && . /etc/atrios-release
 	if [ "X${LINUXFAMILY}" = "Xsun8i" -a "X${BRANCH}" = "Xdefault" -a "X${BOARD}" != "Xorangepizero" ]; then
 		# Supported board/kernel combination so proceed
 		:

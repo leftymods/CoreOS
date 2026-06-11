@@ -3,10 +3,10 @@
 DEVICE_TREE_PATH="/boot/dtb"
 DEVICE_TREE_GLOB="rk322*-box*.dtb"
 DEVICE_TREE_OVERLAY_PATH="/boot/dtb/overlay"
-ARMBIAN_ENV_TXT="/boot/armbianEnv.txt"
+ARMBIAN_ENV_TXT="/boot/atriosEnv.txt"
 BLACKLIST_MODPROBE_CONF="/etc/modprobe.d/blacklist-rk322x-box.conf"
 
-BACKTITLE="Armbian RK322x device tree board selection | Paolo Sabatino"
+BACKTITLE="AtriOS RK322x device tree board selection | Paolo Sabatino"
 TITLE="Board configuration"
 MENU_TITLE="Please choose your board"
 
@@ -116,7 +116,7 @@ else
 	LEGACY_KERNEL=0
 fi
 
-DT_OVERLAY_PREFIX="$(grep overlay_prefix /boot/armbianEnv.txt | cut -d "=" -f 2)-"
+DT_OVERLAY_PREFIX="$(grep overlay_prefix /boot/atriosEnv.txt | cut -d "=" -f 2)-"
 
 # Query the efuse to get the chip type.
 # Not always reliable, but often.
@@ -582,7 +582,7 @@ if [[ $LEGACY_KERNEL -eq 1 ]]; then
 
 	if [[ -n "$WIFI_ID" ]] && [[ ! -v WIFI_CHIPS[$WIFI_ID] ]]; then
 		echo "Wifi chip $WIFI_ID has been detected, but currently it is unsupported"
-		echo "Please report to: https://forum.armbian.com/topic/12656-wip-armbian-for-rk322x-devices/"
+		echo "Please report to: https://forum.armbian.com/topic/12656-wip-atrios-for-rk322x-devices/"
 	fi
 
 fi

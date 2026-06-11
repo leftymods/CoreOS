@@ -1,0 +1,12 @@
+# configuration values for the atrios-ram-logging service
+#
+# enable the atrios-ram-logging service?
+ENABLED=false
+#
+# size of the tmpfs mount -- please keep in mind to adjust /etc/default/atrios-zram-config too when increasing
+SIZE=30M
+#
+# use rsync instead of cp -r
+# requires rsync installed, may provide better performance
+# due to copying only new and changed files
+USE_RSYNC=true

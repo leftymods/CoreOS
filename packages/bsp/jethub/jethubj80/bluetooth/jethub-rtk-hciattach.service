@@ -3,12 +3,12 @@
 Description=rtk_hciattach
 DefaultDependencies=no
 After=local-fs.target
-Before=armbian-ramlog.target
+Before=atrios-ramlog.target
 Conflicts=shutdown.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/bash /usr/lib/armbian/jethub-rtk-hciattach-starter
+ExecStart=/usr/bin/bash /usr/lib/atrios/jethub-rtk-hciattach-starter
 RemainAfterExit=yes
 TimeoutStartSec=30sec
 

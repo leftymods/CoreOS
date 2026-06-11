@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-. /etc/armbian-release
+. /etc/atrios-release
 
 tempname="/boot/uInitrd-$1"
 echo "update-initramfs: Armbian: Converting to u-boot format: ${tempname}" >&2

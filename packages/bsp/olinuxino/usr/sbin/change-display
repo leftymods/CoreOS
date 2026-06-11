@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # read in board info
-[[ -f /etc/armbian-release ]] && source /etc/armbian-release
-backtitle="OLinuXino display configurator for Armbian v${VERSION}"
+[[ -f /etc/atrios-release ]] && source /etc/atrios-release
+backtitle="OLinuXino display configurator for AtriOS v${VERSION}"
 
 bin_file="/boot/script.bin"
 log_file="/var/log/change_display.log"

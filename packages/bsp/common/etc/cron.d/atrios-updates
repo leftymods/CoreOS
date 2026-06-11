@@ -1,0 +1,2 @@
+@reboot root /usr/lib/atrios/atrios-apt-updates
+@daily root /usr/lib/atrios/atrios-apt-updates

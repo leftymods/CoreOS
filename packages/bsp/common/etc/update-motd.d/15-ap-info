@@ -7,8 +7,8 @@ set -o pipefail
 # one-time spacer after header (marks that something printed before Performance)
 _motd_mark_after_header() {
   # prefer /run, fallback to user runtime or /tmp (works when not root)
-  local base="/run/armbian-motd"
-  mkdir -p "$base" 2>/dev/null || base="${XDG_RUNTIME_DIR:-/tmp}/armbian-motd"
+  local base="/run/atrios-motd"
+  mkdir -p "$base" 2>/dev/null || base="${XDG_RUNTIME_DIR:-/tmp}/atrios-motd"
   mkdir -p "$base" 2>/dev/null || return 0
   local stamp="${base}/.after_header.printed"
   [[ -e "$stamp" ]] || { echo ""; : >"$stamp"; }
@@ -20,7 +20,7 @@ THIS_SCRIPT="ap-info"
 MOTD_DISABLE=""
 
 # Optional overrides
-safe_source /etc/default/armbian-motd
+safe_source /etc/default/atrios-motd
 for f in ${MOTD_DISABLE}; do
   [[ "${f}" == "${THIS_SCRIPT}" ]] && exit 0
 done
