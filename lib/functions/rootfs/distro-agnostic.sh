@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 #
-# Copyright (c) 2013-2026 Igor Pecovnik, igor@armbian.com
+# Copyright (c) 2025-2026 leftymods
 #
 # This file is a part of the Armbian Build Framework
 # https://github.com/armbian/build/
@@ -546,7 +546,7 @@ function install_distribution_agnostic() {
 	fi
 
 	# save initial armbian-release state
-	cp "${SDCARD}"/etc/armbian-release "${SDCARD}"/etc/armbian-image-release
+	cp "${SDCARD}"/etc/atrios-release "${SDCARD}"/etc/atrios-image-release
 
 	# save list of enabled extensions for this image
 	echo "EXTENSIONS='${ENABLE_EXTENSIONS}'" >> "${SDCARD}"/etc/armbian-image-release

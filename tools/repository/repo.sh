@@ -1189,7 +1189,7 @@ help()
 {
 echo "Armbian wrapper for Aptly v1.0
 
-(c) Igor Pecovnik, igor@armbian.com
+(c) 2025-2026 leftymods
 
 License: (MIT) <https://mit-license.org/>
 

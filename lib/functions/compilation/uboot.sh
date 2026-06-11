@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 #
-# Copyright (c) 2013-2026 Igor Pecovnik, igor@armbian.com
+# Copyright (c) 2025-2026 leftymods
 #
 # This file is a part of the Armbian Build Framework
 # https://github.com/armbian/build/
@@ -571,7 +571,7 @@ function compile_uboot() {
 function uboot_postinst_base() {
 	# Source the armbian-release information file
 	# shellcheck source=/dev/null
-	[ -f /etc/armbian-release ] && . /etc/armbian-release
+	[ -f /etc/atrios-release ] && . /etc/atrios-release
 	# shellcheck source=/dev/null
 	source /usr/lib/u-boot/platform_install.sh
 

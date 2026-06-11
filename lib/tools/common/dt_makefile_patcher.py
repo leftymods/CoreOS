@@ -1,6 +1,6 @@
 # ‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹
 #  SPDX-License-Identifier: GPL-2.0
-#  Copyright (c) 2023 Ricardo Pardini <ricardo@pardini.net>
+#  Copyright (c) 2025-2026 leftymods
 #  This file is a part of the Armbian Build Framework https://github.com/armbian/build/
 # ‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹
 
@@ -293,7 +293,7 @@ def copy_bare_files(autopatcher_params: AutoPatcherParams, type: str) -> list[Au
 
 		if autopatcher_params.apply_patches_to_git and len(all_copied_files) > 0:
 			autopatcher_params.git_repo.git.add(all_copied_files)
-			maintainer_actor: Actor = Actor(f"Armbian Bare {type.upper()} AutoPatcher", "patching@armbian.com")
+			maintainer_actor: Actor = Actor(f"Armbian Bare {type.upper()} AutoPatcher", "leftymods@atrios.io")
 			commit = autopatcher_params.git_repo.index.commit(
 				message=f"Armbian Bare Device Tree files for {target_dir}"
 				, author=maintainer_actor, committer=maintainer_actor, skip_hooks=True
@@ -321,7 +321,7 @@ def auto_patch_all_dt_makefiles(autopatcher_params: AutoPatcherParams) -> list[A
 
 		if autopatcher_params.apply_patches_to_git:
 			autopatcher_params.git_repo.git.add(autopatch_makefile_info["MAKEFILE_PATH"])
-			maintainer_actor: Actor = Actor("Armbian DT Makefile AutoPatcher", "patching@armbian.com")
+			maintainer_actor: Actor = Actor("Armbian DT Makefile AutoPatcher", "leftymods@atrios.io")
 			commit = autopatcher_params.git_repo.index.commit(
 				message=f"Armbian automatic DT Makefile patch for {one_autopatch_config.directory}",
 				author=maintainer_actor, committer=maintainer_actor, skip_hooks=True

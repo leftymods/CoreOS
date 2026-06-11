@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 #
-# Copyright (c) 2022-2023 Ricardo Pardini <ricardo@pardini.net>
+# Copyright (c) 2025-2026 leftymods
 #
 # This file is a part of the Armbian Build Framework
 # https://github.com/armbian/build/

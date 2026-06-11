@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 #
-# Copyright (c) 2013-2026 Igor Pecovnik, igor@armbian.com
+# Copyright (c) 2025-2026 leftymods
 #
 # This file is a part of the Armbian Build Framework
 # https://github.com/armbian/build/
@@ -22,7 +22,7 @@ function interactive_config_prepare_terminal() {
 	# We'll use this title on all menus
 	declare current_year
 	current_year=$(date +%Y)
-	declare -g -r backtitle="Armbian Linux build framework, https://www.armbian.com | (c) 2013-${current_year} Igor Pecovnik "
+	declare -g -r backtitle="Armbian Linux build framework, https://www.armbian.com | (c) 2025-2026 leftymods "
 	declare -A -g ARMBIAN_INTERACTIVE_CONFIGS=() # An associative array of all interactive configurations
 }
 

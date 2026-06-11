@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 #
-# Copyright (c) 2013-2026 Igor Pecovnik, igor@armbian.com
+# Copyright (c) 2025-2026 leftymods
 #
 # This file is a part of the Armbian Build Framework
 # https://github.com/armbian/build/
@@ -53,18 +53,18 @@ function artifact_atrios-bsp-cli_prepare_version() {
 		"has_extlinux: ${bootscript_info[has_extlinux]}"
 		"UBOOT_FW_ENV: ${UBOOT_FW_ENV}"                               # not included in bootscript
 		"KEEP_ORIGINAL_OS_RELEASE: ${KEEP_ORIGINAL_OS_RELEASE:-"no"}" # /etc/os-release
-		"BOARDFAMILY: ${BOARDFAMILY}"                                 # /etc/armbian-release
-		"LINUXFAMILY: ${LINUXFAMILY}"                                 # /etc/armbian-release
-		"IMAGE_TYPE: ${IMAGE_TYPE}"                                   # /etc/armbian-release
-		"BOARD_TYPE: ${BOARD_TYPE}"                                   # /etc/armbian-release
-		"INITRD_ARCH: ${INITRD_ARCH}"                                 # /etc/armbian-release
-		"KERNEL_IMAGE_TYPE: ${KERNEL_IMAGE_TYPE}"                     # /etc/armbian-release
-		"VENDOR: ${VENDOR}"                                           # /etc/armbian-release
-		"VENDORCOLOR: ${VENDORCOLOR}"                                 # /etc/armbian-release
-		"OVERLAY_DIR: ${OVERLAY_DIR}"                                 # /etc/armbian-release
-		"KERNEL_TARGET: ${KERNEL_TARGET}"                             # /etc/armbian-release
-		"KERNEL_TEST_TARGET: ${KERNEL_TEST_TARGET}"                   # /etc/armbian-release
-		"BOOT_SOC: ${BOOT_SOC}"                                       # /etc/armbian-release # See https://github.com/armbian/build/pull/6411
+		"BOARDFAMILY: ${BOARDFAMILY}"                                 # /etc/atrios-release
+		"LINUXFAMILY: ${LINUXFAMILY}"                                 # /etc/atrios-release
+		"IMAGE_TYPE: ${IMAGE_TYPE}"                                   # /etc/atrios-release
+		"BOARD_TYPE: ${BOARD_TYPE}"                                   # /etc/atrios-release
+		"INITRD_ARCH: ${INITRD_ARCH}"                                 # /etc/atrios-release
+		"KERNEL_IMAGE_TYPE: ${KERNEL_IMAGE_TYPE}"                     # /etc/atrios-release
+		"VENDOR: ${VENDOR}"                                           # /etc/atrios-release
+		"VENDORCOLOR: ${VENDORCOLOR}"                                 # /etc/atrios-release
+		"OVERLAY_DIR: ${OVERLAY_DIR}"                                 # /etc/atrios-release
+		"KERNEL_TARGET: ${KERNEL_TARGET}"                             # /etc/atrios-release
+		"KERNEL_TEST_TARGET: ${KERNEL_TEST_TARGET}"                   # /etc/atrios-release
+		"BOOT_SOC: ${BOOT_SOC}"                                       # /etc/atrios-release # See https://github.com/armbian/build/pull/6411
 		"hash_vars_no_normalize: ${hash_vars_no_normalize}"           # The non-normalized part, above
 	)
 	declare hash_variables="undetermined" # will be set by calculate_hash_for_variables(), which normalizes the input
