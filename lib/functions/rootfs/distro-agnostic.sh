@@ -157,8 +157,10 @@ function install_distribution_agnostic() {
 	#chroot "${SDCARD}" /bin/bash -c "chage -d 0 root"
 
 	# change console welcome text
-	echo -e "${VENDOR} ${IMAGE_VERSION:-"${REVISION}"} ${RELEASE^} \\l \n" > "${SDCARD}"/etc/issue
-	echo "${VENDOR} ${IMAGE_VERSION:-"${REVISION}"} ${RELEASE^}" > "${SDCARD}"/etc/issue.net
+	declare ver="${IMAGE_VERSION:-"${REVISION}"}"
+	declare release_display="${RELEASE_ALIAS:-${RELEASE^}}"
+	echo -e "${VENDOR}${ver:+ $ver} ${release_display} \\l \n" > "${SDCARD}"/etc/issue
+	echo "${VENDOR}${ver:+ $ver} ${release_display}" > "${SDCARD}"/etc/issue.net
 
 	# Copy SKEL bashrc and profile to root user
 	cp "${SDCARD}"/etc/skel/.bashrc "${SDCARD}"/root/
@@ -361,7 +363,7 @@ function install_distribution_agnostic() {
 	fi
 
 	call_extension_method "pre_install_kernel_debs" <<- 'PRE_INSTALL_KERNEL_DEBS'
-		*called before installing the Armbian-built kernel deb packages*
+		*called before installing the AtriOS-built kernel deb packages*
 		It is not too late to `KERNELSOURCE='none'` here and avoid kernel install.
 	PRE_INSTALL_KERNEL_DEBS
 
@@ -421,7 +423,7 @@ function install_distribution_agnostic() {
 
 	# freeze armbian packages
 	if [[ "${BSPFREEZE:-"no"}" == yes ]]; then
-		display_alert "Freezing Armbian packages" "$BOARD" "info"
+		display_alert "Freezing AtriOS packages" "$BOARD" "info"
 		declare -g -A image_artifacts_debs_installed # global scope, set in main_default_build_packages()
 		declare -g -A image_artifacts_packages       # global scope, set in main_default_build_packages()
 		declare -a package_names_to_hold=()
@@ -457,7 +459,7 @@ function install_distribution_agnostic() {
 	FAMILY_TWEAKS
 
 	# enable additional services, if they exist.
-	display_alert "Enabling Armbian services" "systemd" "info"
+	display_alert "Enabling AtriOS services" "systemd" "info"
 	if [[ -f "${SDCARD}"/lib/systemd/system/armbian-firstrun.service ]]; then
 		# Note: armbian-firstrun starts before the user has a chance to edit the env file's values.
 		# Exceptionaly, the env file can be edited during image build time

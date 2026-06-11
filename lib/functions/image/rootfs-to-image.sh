@@ -11,12 +11,16 @@ function calculate_image_version() {
 	declare kernel_version_for_image="unknown"
 	kernel_version_for_image="${IMAGE_INSTALLED_KERNEL_VERSION/-$LINUXFAMILY/}"
 
-	declare vendor_version_prelude="${VENDOR}_${IMAGE_VERSION:-"${REVISION}"}_"
+	declare ver="${IMAGE_VERSION:-"${REVISION}"}"
+	declare vendor_version_prelude="${VENDOR}_"
+	if [[ -n "${ver}" ]]; then vendor_version_prelude="${VENDOR}_${ver}_"; fi
 	if [[ "${include_vendor_version:-"yes"}" == "no" ]]; then
 		vendor_version_prelude=""
 	fi
 
-	calculated_image_version="${vendor_version_prelude}${BOARD^}_${RELEASE}_${BRANCH}_${kernel_version_for_image}${DESKTOP_ENVIRONMENT:+_$DESKTOP_ENVIRONMENT}${EXTRA_IMAGE_SUFFIX}"
+	declare release_for_image="${RELEASE_ALIAS:-${RELEASE}}"
+
+	calculated_image_version="${vendor_version_prelude}${BOARD^}_${release_for_image}_${BRANCH}_${kernel_version_for_image}${DESKTOP_ENVIRONMENT:+_$DESKTOP_ENVIRONMENT}${EXTRA_IMAGE_SUFFIX}"
 	[[ $BUILD_DESKTOP == yes ]] && calculated_image_version=${calculated_image_version}_desktop
 	[[ $BUILD_MINIMAL == yes ]] && calculated_image_version=${calculated_image_version}_minimal
 	[[ $ROOTFS_TYPE == nfs ]] && calculated_image_version=${calculated_image_version}_nfsboot
