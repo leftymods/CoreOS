@@ -241,11 +241,22 @@ function reversion_atrios-base-files_deb_contents() {
 	artifact_deb_reversion_unpack_data_deb
 	: "${data_dir:?data_dir is not set}"
 
-	# Change the PRETTY_NAME and add ARMBIAN_PRETTY_NAME in os-release, and change issue, issue.net
-	echo "ARMBIAN_PRETTY_NAME=\"${VENDOR} ${REVISION} ${orig_distro_release}\"" >> "${data_dir}"/etc/os-release
-	echo -e "${VENDOR} ${REVISION} ${orig_distro_release} \\l \n" > "${data_dir}"/etc/issue
-	echo -e "${VENDOR} ${REVISION} ${orig_distro_release}" > "${data_dir}"/etc/issue.net
-	sed -i "s/^PRETTY_NAME=.*/PRETTY_NAME=\"${VENDOR} $REVISION ${orig_distro_release}\"/" "${data_dir}"/etc/os-release
+	# Replace os-release entirely with AtriOS branding (no Debian references)
+	cat > "${data_dir}"/etc/os-release <<- EOD
+		PRETTY_NAME="${VENDOR} Nebula"
+		NAME="${VENDOR}"
+		ID=${VENDOR,,}
+		ID_LIKE=debian
+		VERSION_CODENAME=Nebula
+		VERSION="Nebula"
+		HOME_URL="${VENDORURL}"
+		SUPPORT_URL="${VENDORSUPPORT}"
+		BUG_REPORT_URL="${VENDORBUGS}"
+		LOGO=${VENDORLOGO}
+	EOD
+
+	echo -e "${VENDOR} Nebula \\l \n" > "${data_dir}"/etc/issue
+	echo -e "${VENDOR} Nebula" > "${data_dir}"/etc/issue.net
 
 	# Show results if debugging
 	if [[ "${SHOW_DEBUG}" == "yes" ]]; then
