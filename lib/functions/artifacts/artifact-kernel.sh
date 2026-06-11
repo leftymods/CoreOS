@@ -59,7 +59,7 @@ function artifact_kernel_prepare_version() {
 	#       this building process 🤯
 	# - Also note: BOARDFAMILY is not an input here; and merely a mechanism for BOARDs to share some common defs.
 	#     - That was later (but pre-armbian-next) made more complicated by sourcing, "families/includes/<xxx>_common.inc"
-	# - 👉 tl;dr: Armbian kernels can't have per-board patches or configs; "family code" is a lie; repo management is hell.
+	# - 👉 tl;dr: AtriOS kernels can't have per-board patches or configs; "family code" is a lie; repo management is hell.
 	debug_var BOARD              # Heh.
 	debug_var BOARDFAMILY        # Heh.
 	debug_var KERNEL_MAJOR_MINOR # Double heh. transitional stuff, from when armbian-next began. 🤣
@@ -268,6 +268,9 @@ function artifact_kernel_prepare_version() {
 	artifact_type="deb-tar" # this triggers processing of .deb files in the maps to produce a tarball
 	artifact_deb_repo="global"
 	artifact_deb_arch="${ARCH}"
+
+	# Use kernel version for deb version, not REVISION — so changing REVISION doesn't trigger kernel rebuild
+	artifact_final_version_reversioned="${GIT_INFO_KERNEL[MAKEFILE_VERSION]}"
 
 	return 0
 }
