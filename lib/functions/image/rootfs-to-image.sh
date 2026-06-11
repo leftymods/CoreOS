@@ -11,7 +11,7 @@ function calculate_image_version() {
 	declare kernel_version_for_image="unknown"
 	kernel_version_for_image="${IMAGE_INSTALLED_KERNEL_VERSION/-$LINUXFAMILY/}"
 
-	declare ver="${IMAGE_VERSION:-"${REVISION}"}"
+	declare ver="${IMAGE_VERSION-"${REVISION}"}"
 	declare vendor_version_prelude="${VENDOR}_"
 	if [[ -n "${ver}" ]]; then vendor_version_prelude="${VENDOR}_${ver}_"; fi
 	if [[ "${include_vendor_version:-"yes"}" == "no" ]]; then

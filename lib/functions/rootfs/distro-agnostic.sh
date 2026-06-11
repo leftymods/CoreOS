@@ -157,7 +157,7 @@ function install_distribution_agnostic() {
 	#chroot "${SDCARD}" /bin/bash -c "chage -d 0 root"
 
 	# change console welcome text
-	declare ver="${IMAGE_VERSION:-"${REVISION}"}"
+	declare ver="${IMAGE_VERSION-"${REVISION}"}"
 	declare release_display="${RELEASE_ALIAS:-${RELEASE^}}"
 	echo -e "${VENDOR}${ver:+ $ver} ${release_display} \\l \n" > "${SDCARD}"/etc/issue
 	echo "${VENDOR}${ver:+ $ver} ${release_display}" > "${SDCARD}"/etc/issue.net
