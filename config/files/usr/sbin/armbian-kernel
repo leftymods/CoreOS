@@ -8,7 +8,7 @@
 # This file is a part of the Rebuild Armbian
 # https://github.com/ophub/amlogic-s9xxx-armbian
 #
-# Description: Run on Armbian to compile the kernel
+# Description: Run on AtriOS to compile the kernel
 # Copyright (C) 2021- https://github.com/unifreq
 # Copyright (C) 2021- https://github.com/ophub/amlogic-s9xxx-armbian
 #
@@ -154,9 +154,9 @@ EOF
     exit 0
 }
 
-# Check script permission, only supports running on Armbian (aarch64)
+# Check script permission, only supports running on AtriOS (aarch64)
 [[ "$(id -u)" == "0" ]] || error_msg "Please run this script as root: [ sudo $0 ]"
-[[ "${arch_info}" == "aarch64" ]] || error_msg "This script only supports running on Armbian (aarch64) systems."
+[[ "${arch_info}" == "aarch64" ]] || error_msg "This script only supports running on AtriOS (aarch64) systems."
 # Require at least 5GiB of free space
 [[ -d "${make_path}" ]] || mkdir -p ${make_path}
 remaining_space="$(df -Tk ${make_path} | tail -n1 | awk '{print $5}' | echo $(($(xargs) / 1024 / 1024)))"

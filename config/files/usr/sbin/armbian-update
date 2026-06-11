@@ -8,7 +8,7 @@
 # This file is a part of the Rebuild Armbian
 # https://github.com/ophub/amlogic-s9xxx-armbian
 #
-# Function: Armbian Kernel Update Tool
+# Function: AtriOS Kernel Update Tool
 # Copyright (C) 2021- https://github.com/unifreq/openwrt_packit
 # Copyright (C) 2021- https://github.com/ophub/amlogic-s9xxx-armbian
 #
@@ -1143,7 +1143,7 @@ EOF
 
 # Check script permission
 [[ "$(id -u)" == "0" ]] || error_msg "Please run this script as root: [ sudo $0 ]"
-echo -e "${STEPS} Welcome to the Armbian Kernel Update Tool."
+echo -e "${STEPS} Welcome to the AtriOS Kernel Update Tool."
 
 # Detect backup-only invocation: exactly two args [ -b yes ] in any order is not supported,
 # but a single "-b yes" pair without other options should run the backup-only path.
@@ -1159,7 +1159,7 @@ if [[ "${@}" =~ ^-s(\s)* ]]; then
 
     # Kernel restore successful
     sync && sleep 3
-    echo -e "${SUCCESS} Kernel rescue completed successfully. Please remove the disk and restart the Armbian system."
+    echo -e "${SUCCESS} Kernel rescue completed successfully. Please remove the disk and restart the AtriOS system."
 elif [[ "${backup_only}" == "yes" ]]; then
     # Backup current kernel
     init_var "${@}"

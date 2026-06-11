@@ -272,9 +272,9 @@ EOF
     exit 0
 }
 
-# Check script permission, only supports running on Armbian (aarch64)
+# Check script permission, only supports running on AtriOS (aarch64)
 [[ "$(id -u)" == "0" ]] || error_msg "Please run this script as root: [ sudo $0 ]"
-[[ "${arch_info}" == "aarch64" ]] || error_msg "This script only supports running on Armbian (aarch64) systems."
+[[ "${arch_info}" == "aarch64" ]] || error_msg "This script only supports running on AtriOS (aarch64) systems."
 # Ensure the software configuration file exists
 [[ -f "${software_conf}" ]] || echo -e "${INFO} Please run [ armbian-software -u ] to update the software management scripts."
 # Check system release information
